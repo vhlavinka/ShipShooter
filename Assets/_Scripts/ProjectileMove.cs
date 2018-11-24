@@ -23,8 +23,6 @@ public class ProjectileMove : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         speed = 0;
-        Destroy(this.gameObject); // added a "Player" layer so projectiles won't accidently be destroyed
-        Debug.Log(collision.gameObject.name);
-      
+        Destroy(this.gameObject); // added a "Player" layer so projectiles won't accidently be destroyed       
     }
 }

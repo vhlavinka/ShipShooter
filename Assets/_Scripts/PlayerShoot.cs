@@ -30,12 +30,11 @@ public class PlayerShoot : MonoBehaviour {
         if(firePoint != null)
         {
             // Create the projectile
-            vfx = Instantiate(effectToSpawn, firePoint.transform.position, Quaternion.identity);
-
+            vfx = Instantiate(effectToSpawn, firePoint.transform.position, Quaternion.identity);     
             // Point projectile in same direction as mouse
             if (player != null)
             {
-                vfx.transform.localRotation = player.GetRotation();
+                vfx.transform.localRotation = player.GetRotation();       
             }
         }
         else

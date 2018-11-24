@@ -62,10 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Scripts\EnemyMovement.cs" />
+    <Compile Include="Assets\_Scripts\EnemyShip.cs" />
     <Compile Include="Assets\_Scripts\Player.cs" />
+    <Compile Include="Assets\_Scripts\PlayerScore.cs" />
     <Compile Include="Assets\_Scripts\PlayerShoot.cs" />
     <Compile Include="Assets\_Scripts\ProjectileMove.cs" />
     <Compile Include="Assets\_Scripts\RotateToMouse.cs" />
+    <Compile Include="Assets\_Scripts\SpawnEnemies.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/la_le.DESKTOP-OVQ948Q/OneDrive/Documents/UnityProjects/ArcadeShooter/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
