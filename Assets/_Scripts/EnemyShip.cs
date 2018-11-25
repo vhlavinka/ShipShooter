@@ -22,8 +22,11 @@ public class EnemyShip : MonoBehaviour {
     public float leftRightEdge = 90f;
     public float upDownEdge = 20f;
 
+    [Header("Type of Ship")]
+    public ShipType type;  // Holds the type of ship 
+
+    [Header("Private")]
     private Vector3 startPos;
-    private ShipType type;  // Holds the type of ship 
     private float startTime; // Start time from when ship is spawned
     private bool startMoving = false;
     private Quaternion rotation; // track rotation of ship

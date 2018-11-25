@@ -42,6 +42,10 @@ public class EnemyShoot : MonoBehaviour
             if (enemyShip != null)
             {
                 vfx.transform.localRotation = enemyShip.GetRotation();
+                if(enemyShip.type == ShipType.SixPoint )
+                {
+                    vfx.transform.localRotation = Quaternion.identity;
+                }
             }
         }
         else

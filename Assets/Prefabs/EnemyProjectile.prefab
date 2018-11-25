@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198667492618065464}
   - component: {fileID: 199285807864933352}
   - component: {fileID: 65748581168186764}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4517188891165210}
   - component: {fileID: 198626908054915260}
   - component: {fileID: 199219125355633490}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4452474063403568}
   - component: {fileID: 54357014195085780}
   - component: {fileID: 114463426671976844}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: EnemyProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4106178366516592}
   - component: {fileID: 96828443550292360}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,8 +159,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.9347135, y: 3.9968836, z: 1.934714}
-  m_Center: {x: 0, y: -0.04827583, z: 2.0213742e-16}
+  m_Size: {x: 3.6529408, y: 6.931989, z: 2.7200634}
+  m_Center: {x: 0.034454346, y: -0.5460938, z: -0.3926748}
 --- !u!96 &96828443550292360
 TrailRenderer:
   serializedVersion: 2
@@ -200,7 +200,7 @@ TrailRenderer:
   m_Time: 0.1
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -273,8 +273,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bba4436a5dd7c6e43b77960f2c44ebd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 80
-  fireRate: 10
+  speed: 40
+  fireRate: 1
 --- !u!198 &198626908054915260
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -5056,7 +5056,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 75
+      scalar: 150
       minScalar: 1
       maxCurve:
         serializedVersion: 2
