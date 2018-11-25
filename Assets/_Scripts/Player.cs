@@ -39,12 +39,6 @@ public class Player : MonoBehaviour {
         // Make it face the mouse
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // Either will work in orthographic camera view:
-        //Vector3 direction = new Vector3(mousePos.x - transform.position.x ,
-        //    transform.position.y,
-        //    mousePos.z - transform.position.z);
-        //transform.LookAt(direction);
-
         Vector3 direction = new Vector3(mousePos.x,
             transform.position.y,
             mousePos.z);

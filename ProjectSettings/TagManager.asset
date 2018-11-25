@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerProjectile
   - PlayerShip
+  - Seeker
   layers:
   - Default
   - TransparentFX

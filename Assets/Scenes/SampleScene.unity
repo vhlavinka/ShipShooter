@@ -795,12 +795,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sixPointShip: {fileID: 1528855271735870, guid: 30b9ccf0860ba804bb6b471dcc64fb01,
     type: 2}
-  seekerShip: {fileID: 1488397259879850, guid: 0284fc4e02850304f9a315855747331a, type: 2}
-  gruntShip: {fileID: 1106791220510060, guid: 717e8874cd22763488ae75667680e5c4, type: 2}
-  speed: 10
-  chanceToChangeDirections: 0.1
-  leftRightEdge: 90
-  upDownEdge: 20
+  seekerShip: {fileID: 1035054132785258, guid: af2c8a20f1d92874d9f4684145d77a49, type: 2}
+  gruntShip: {fileID: 1035054132785258, guid: af2c8a20f1d92874d9f4684145d77a49, type: 2}
 --- !u!4 &1269998982
 Transform:
   m_ObjectHideFlags: 0
@@ -1024,6 +1020,31 @@ Prefab:
     - target: {fileID: 4181481333610406, guid: 2a80f41fe9a3e324a9592d5f27a9927e, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114916556292307302, guid: 2a80f41fe9a3e324a9592d5f27a9927e,
+        type: 2}
+      propertyPath: vfx.Array.data[0]
+      value: 
+      objectReference: {fileID: 1818633271587430, guid: 08571987ba2b3d6479c6b9c6d0fdf197,
+        type: 2}
+    - target: {fileID: 114284446277848118, guid: 2a80f41fe9a3e324a9592d5f27a9927e,
+        type: 2}
+      propertyPath: vfx.Array.data[0]
+      value: 
+      objectReference: {fileID: 1818633271587430, guid: 08571987ba2b3d6479c6b9c6d0fdf197,
+        type: 2}
+    - target: {fileID: 4686692928375956, guid: 2a80f41fe9a3e324a9592d5f27a9927e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4192643262073394, guid: 2a80f41fe9a3e324a9592d5f27a9927e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54176293240469896, guid: 2a80f41fe9a3e324a9592d5f27a9927e,
+        type: 2}
+      propertyPath: m_UseGravity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a80f41fe9a3e324a9592d5f27a9927e, type: 2}

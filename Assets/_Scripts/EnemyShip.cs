@@ -15,11 +15,10 @@ public enum ShipType { SixPoint, Seeker, Grunt };
 public class EnemyShip : MonoBehaviour {
     public static int score;
 
-    // Ship movement variables
     [Header("Ship Movement")]
     public float flyInTime = 3.0f; // Speed the ship will fly in at
     public float speed = 10f;
-    public float chanceToChangeDirections = 0.1f;
+    public float chanceToChangeDirections = 0.01f;
     public float leftRightEdge = 90f;
     public float upDownEdge = 20f;
 
@@ -27,7 +26,7 @@ public class EnemyShip : MonoBehaviour {
     private ShipType type;  // Holds the type of ship 
     private float startTime; // Start time from when ship is spawned
     private bool startMoving = false;
-
+    private Quaternion rotation; // track rotation of ship
 
     void Awake () {
         // Set start time and position
@@ -37,24 +36,26 @@ public class EnemyShip : MonoBehaviour {
         if (gameObject.name == "Target(Clone)")
         {
             type = ShipType.SixPoint;
-            Health = 100;
+            Health = 75;
         }
         else if(gameObject.name == "Seeker(Clone)")
         {
             type = ShipType.Seeker;
-            Health = 80;
+            Health = 40;
+            
         }
         else if (gameObject.name == "Grunt(Clone)")
         {
             type = ShipType.Grunt;
-            Health = 40;
+            Health = 15;
         }
 
         Invoke("ShipMovement", 6);
+
     }
 	
 	void Update () {
-        Debug.Log(Time.time);
+        //Debug.Log(Time.time);
 
         if(Time.time < 6f + startTime)
         {
@@ -76,6 +77,9 @@ public class EnemyShip : MonoBehaviour {
             Destroy(gameObject);
             score += 100;
         }
+
+        // Controls how each ship behaves
+        ShipBehavior();
     }
 
     void FixedUpdate()
@@ -88,6 +92,7 @@ public class EnemyShip : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.gameObject.name);
         if(collision.gameObject.name == "PlayerProjectile(Clone)")
         {
             Health -= 1;    // Projectile damage
@@ -122,6 +127,40 @@ public class EnemyShip : MonoBehaviour {
         {
             speed = -Mathf.Abs(speed);
         }
+    }
+
+    void ShipBehavior()
+    {
+        GameObject playerShip = GameObject.Find("Ship");
+        Vector3 psPos = playerShip.transform.position;
+
+        switch (type)
+        {
+            case ShipType.SixPoint:
+                // this ship will fire from six points
+                break;
+            case ShipType.Seeker:
+                // this ship will face the player
+                RotateToPlayer(gameObject, psPos);
+                break;
+            case ShipType.Grunt:
+                RotateToPlayer(gameObject, psPos);
+                break;
+            default:
+                break;
+        }
+    }
+
+    void RotateToPlayer(GameObject obj, Vector3 destination) // obj = enemyship, destination= player vector
+    {
+        Vector3 direction = destination - obj.transform.position;
+        rotation = Quaternion.LookRotation(direction);
+        obj.transform.localRotation = Quaternion.Lerp(obj.transform.rotation, rotation, 1);
+    }
+
+    public Quaternion GetRotation()
+    {
+        return rotation;
     }
 
     public int Health { get; set; }
