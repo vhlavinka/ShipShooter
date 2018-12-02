@@ -797,6 +797,9 @@ MonoBehaviour:
     type: 2}
   seekerShip: {fileID: 1035054132785258, guid: af2c8a20f1d92874d9f4684145d77a49, type: 2}
   gruntShip: {fileID: 1035054132785258, guid: af2c8a20f1d92874d9f4684145d77a49, type: 2}
+  healthCloud: {fileID: 1433016043256480, guid: 262e38bf2a0383c4eb0a6b5ad6900d19,
+    type: 2}
+  healthCloudProbability: 0.0005
 --- !u!4 &1269998982
 Transform:
   m_ObjectHideFlags: 0
@@ -900,6 +903,52 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1665428047}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1696840238
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4799403914034262, guid: 262e38bf2a0383c4eb0a6b5ad6900d19, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799403914034262, guid: 262e38bf2a0383c4eb0a6b5ad6900d19, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799403914034262, guid: 262e38bf2a0383c4eb0a6b5ad6900d19, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 11.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799403914034262, guid: 262e38bf2a0383c4eb0a6b5ad6900d19, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799403914034262, guid: 262e38bf2a0383c4eb0a6b5ad6900d19, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799403914034262, guid: 262e38bf2a0383c4eb0a6b5ad6900d19, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799403914034262, guid: 262e38bf2a0383c4eb0a6b5ad6900d19, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799403914034262, guid: 262e38bf2a0383c4eb0a6b5ad6900d19, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433016043256480, guid: 262e38bf2a0383c4eb0a6b5ad6900d19, type: 2}
+      propertyPath: m_TagString
+      value: Cloud
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 262e38bf2a0383c4eb0a6b5ad6900d19, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1849102677
 GameObject:
   m_ObjectHideFlags: 0
@@ -1036,6 +1085,32 @@ Prefab:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 824684529}
+    - target: {fileID: 54176293240469896, guid: 2a80f41fe9a3e324a9592d5f27a9927e,
+        type: 2}
+      propertyPath: m_AngularDrag
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 54176293240469896, guid: 2a80f41fe9a3e324a9592d5f27a9927e,
+        type: 2}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114484890960052722, guid: 2a80f41fe9a3e324a9592d5f27a9927e,
+        type: 2}
+      propertyPath: healthCloud
+      value: 
+      objectReference: {fileID: 1433016043256480, guid: 262e38bf2a0383c4eb0a6b5ad6900d19,
+        type: 2}
+    - target: {fileID: 114484890960052722, guid: 2a80f41fe9a3e324a9592d5f27a9927e,
+        type: 2}
+      propertyPath: healthCloudProbability
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 54176293240469896, guid: 2a80f41fe9a3e324a9592d5f27a9927e,
+        type: 2}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a80f41fe9a3e324a9592d5f27a9927e, type: 2}
   m_IsPrefabAsset: 0

@@ -20,7 +20,7 @@ public class EnemyShip : MonoBehaviour {
     public float flyInTime = 3.0f; // Speed the ship will fly in at
     public float speed = 10f;
     public float chanceToChangeDirections = 0.01f;
-    public float leftRightEdge = 90f;
+    public float leftRightEdge = 80f;
     public float upDownEdge = 20f;
     public float rotateSpeed = 0.5f;
 
@@ -40,7 +40,7 @@ public class EnemyShip : MonoBehaviour {
 
         if (type == ShipType.FourPoint)
         {
-            Health = 75;
+            Health = 150;
         }
         else if(type == ShipType.Seeker)
         {
@@ -49,15 +49,14 @@ public class EnemyShip : MonoBehaviour {
         }
         else if (type == ShipType.Grunt)
         {
-            Health = 15;
+            Health = 25;
         }
 
-        Invoke("ShipMovement", 6);
+        Invoke("ShipMovement", 4);
 
     }
 	
 	void Update () {
-        //Debug.Log(Time.time);
 
         if(Time.time < 6f + startTime)
         {
@@ -95,16 +94,18 @@ public class EnemyShip : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
         if(collision.gameObject.name == "PlayerProjectile(Clone)")
         {
             Health -= 1;    // Projectile damage
-            Debug.Log(Health);
         }
     }
 
     void ShipMovement()
     {
+        // activate the firepoints
+        foreach (Transform child in transform)
+            child.gameObject.SetActive(true);
+
         startMoving = true; // make sure ship is allowed to start moving
   
         Vector3 pos = transform.position;

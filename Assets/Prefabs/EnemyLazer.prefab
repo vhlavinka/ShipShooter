@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198667492618065464}
   - component: {fileID: 199285807864933352}
   - component: {fileID: 65748581168186764}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4517188891165210}
   - component: {fileID: 198626908054915260}
   - component: {fileID: 199219125355633490}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,8 @@ GameObject:
   - component: {fileID: 4452474063403568}
   - component: {fileID: 54357014195085780}
   - component: {fileID: 114463426671976844}
-  m_Layer: 10
+  - component: {fileID: 122272182575033830}
+  m_Layer: 11
   m_Name: EnemyLazer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4106178366516592}
   - component: {fileID: 96828443550292360}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,6 +276,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 40
   fireRate: 2
+--- !u!122 &122272182575033830
+Halo:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1818633271587430}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4286382232
+  m_Size: 5
 --- !u!198 &198626908054915260
 ParticleSystem:
   m_ObjectHideFlags: 1

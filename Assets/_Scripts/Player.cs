@@ -10,21 +10,30 @@ public class Player : MonoBehaviour {
     [Header("Player Stats")]
     public float speed = 30f; // speed of ship movement
     public GameObject healthBar;
-    public GameObject forceField;
+
+    [Header("Utilities")]
+    public GameObject forceField;  // absorbs enemy projectiles when activated
+
 
     [Header("Score Text")]
     public Text scoreText;
 
-    //private Rigidbody rb;
     private Quaternion rotation;
     private int playerHealth = 100;
 
 
-	void Start () {
-        //rb = GetComponent<Rigidbody>();
-	}
-	
-	void FixedUpdate () {
+    void Update()
+    {
+        // Speed-dodge when spacebar is pressed
+        if (Input.GetKeyDown("space"))
+        {
+            speed = 70f;
+            Invoke("RevertSpeedBoost", 0.5f);
+            forceField.SetActive(true);
+        }
+    }
+
+    void FixedUpdate () {
         // Movement Controls
         Vector3 pos = transform.position;
 
@@ -46,22 +55,13 @@ public class Player : MonoBehaviour {
         }
         transform.position = pos;
 
-        // Make it face the mouse
+        // Make the player face the mouse
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         Vector3 direction = new Vector3(mousePos.x,
             transform.position.y,
             mousePos.z);
         rotation = Quaternion.LookRotation(direction - transform.position);
         transform.rotation = rotation;
-
-        // Speed-dodge when spacebar is pressed
-        if (Input.GetKeyDown("space"))
-        {
-            speed = 70f;
-            Invoke("RevertSpeedBoost", 0.5f);
-            forceField.SetActive(true);
-        }
 
         scoreText.text = "SCORE: " + EnemyShip.score.ToString();
     }
@@ -77,7 +77,25 @@ public class Player : MonoBehaviour {
     {
         return rotation;
     }
-    
+
+    // if passed through health cloud, add hp back
+    void OnTriggerEnter(Collider collision)
+    {
+        Debug.Log("Before: " + playerHealth);
+        
+        if (collision.name == "HealthCloud(Clone)" && playerHealth < 100)
+        {   
+            playerHealth += 10;
+            Destroy(collision.gameObject);
+            Debug.Log("After: " + playerHealth);
+
+            // update health bar
+            healthBar.transform.localScale = new Vector3(playerHealth * Mathf.Pow(10, -2),
+                        healthBar.transform.localScale.y,
+                        healthBar.transform.localScale.z);
+        }
+    }
+
     // take hp away when hit with enemy projectiles
     void OnCollisionEnter(Collision collision)
     {
@@ -94,7 +112,6 @@ public class Player : MonoBehaviour {
         healthBar.transform.localScale = new Vector3(playerHealth * Mathf.Pow(10, -2),
                     healthBar.transform.localScale.y,
                     healthBar.transform.localScale.z);
-
     }
 }
 
