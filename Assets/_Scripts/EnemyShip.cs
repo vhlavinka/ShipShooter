@@ -8,8 +8,8 @@ using UnityEngine.UI;
  * Attached to Enemy Ship prefabs
  */
 
-public enum ShipType { SixPoint, Seeker, Grunt };
-// SixPoint - this ship has six fire points which fire outward
+public enum ShipType { FourPoint, Seeker, Grunt };
+// FourPoint - this ship has six fire points which fire outward
 // Seeker - this ship will aim towards the player
 // Grunt - this is a weaker ship
 
@@ -22,6 +22,7 @@ public class EnemyShip : MonoBehaviour {
     public float chanceToChangeDirections = 0.01f;
     public float leftRightEdge = 90f;
     public float upDownEdge = 20f;
+    public float rotateSpeed = 0.5f;
 
     [Header("Type of Ship")]
     public ShipType type;  // Holds the type of ship 
@@ -37,20 +38,17 @@ public class EnemyShip : MonoBehaviour {
         startTime = Time.time;
         startPos = transform.position;
 
-        if (gameObject.name == "Target(Clone)")
+        if (type == ShipType.FourPoint)
         {
-            type = ShipType.SixPoint;
             Health = 75;
         }
-        else if(gameObject.name == "Seeker(Clone)")
+        else if(type == ShipType.Seeker)
         {
-            type = ShipType.Seeker;
             Health = 40;
             
         }
-        else if (gameObject.name == "Grunt(Clone)")
+        else if (type == ShipType.Grunt)
         {
-            type = ShipType.Grunt;
             Health = 15;
         }
 
@@ -101,7 +99,7 @@ public class EnemyShip : MonoBehaviour {
         if(collision.gameObject.name == "PlayerProjectile(Clone)")
         {
             Health -= 1;    // Projectile damage
-            //Debug.Log(Health);
+            Debug.Log(Health);
         }
     }
 
@@ -141,8 +139,11 @@ public class EnemyShip : MonoBehaviour {
 
         switch (type)
         {
-            case ShipType.SixPoint:
-                // this ship will fire from six points
+            case ShipType.FourPoint:
+                // this ship will fire from four points   
+                transform.Rotate(new Vector3(0, rotateSpeed, 0));
+                foreach (Transform child in transform)
+                    if(child.name != "fourpointship") child.transform.Rotate(new Vector3(0, rotateSpeed, 0));
                 break;
             case ShipType.Seeker:
                 // this ship will face the player

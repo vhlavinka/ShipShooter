@@ -6,7 +6,7 @@ public class SpawnEnemies : MonoBehaviour {
 
     // Different types of ships
     [Header("Types of Ships")]
-    public GameObject sixPointShip;
+    public GameObject fourPointShip;
     public GameObject seekerShip;
     public GameObject gruntShip;
 
@@ -59,8 +59,8 @@ public class SpawnEnemies : MonoBehaviour {
         if (randShip >= .66)
         {
             // Instantiate the ship
-            spShip = Instantiate(sixPointShip, flyInPointV, Quaternion.identity);
-            lastCalled = ShipType.SixPoint;
+            spShip = Instantiate(fourPointShip, flyInPointV, Quaternion.identity);
+            lastCalled = ShipType.FourPoint;
         }
         else if (randShip >= .33)
         {
@@ -78,7 +78,7 @@ public class SpawnEnemies : MonoBehaviour {
         // continue spawning ships, change spawn time depending upon last ship that went out
         switch (lastCalled)
         {
-            case ShipType.SixPoint:
+            case ShipType.FourPoint:
                 spawnTime = 10f;
                 break;
             case ShipType.Seeker:

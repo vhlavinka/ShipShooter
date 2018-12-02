@@ -11,6 +11,23 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1346177294742970}
   m_IsPrefabAsset: 1
+--- !u!1 &1126675312137622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4103472965914078}
+  - component: {fileID: 122645365143005666}
+  - component: {fileID: 135283675904125206}
+  m_Layer: 0
+  m_Name: ForceField
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1171153529419098
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +166,19 @@ Transform:
   m_Father: {fileID: 4181481333610406}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4103472965914078
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1126675312137622}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4181481333610406}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4181481333610406
 Transform:
   m_ObjectHideFlags: 1
@@ -164,6 +194,7 @@ Transform:
   - {fileID: 4003569868149930}
   - {fileID: 4192643262073394}
   - {fileID: 4686692928375956}
+  - {fileID: 4103472965914078}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -573,6 +604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   healthBar: {fileID: 0}
+  forceField: {fileID: 1126675312137622}
   scoreText: {fileID: 0}
 --- !u!114 &114916556292307302
 MonoBehaviour:
@@ -589,3 +621,26 @@ MonoBehaviour:
   vfx:
   - {fileID: 1818633271587430, guid: 08571987ba2b3d6479c6b9c6d0fdf197, type: 2}
   player: {fileID: 114484890960052722}
+--- !u!122 &122645365143005666
+Halo:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1126675312137622}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4287860829
+  m_Size: 20
+--- !u!135 &135283675904125206
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1126675312137622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4.542859
+  m_Center: {x: 0, y: -4.042859, z: 0}

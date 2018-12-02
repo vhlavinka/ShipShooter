@@ -793,7 +793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a03ee2a800753499bc713e39d8414a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sixPointShip: {fileID: 1705965010324008, guid: 1dab665734febf04489798cdb623a44b,
+  fourPointShip: {fileID: 1095327708473228, guid: 64e74ef4fca7e4149ae78e1d215a2490,
     type: 2}
   seekerShip: {fileID: 1035054132785258, guid: af2c8a20f1d92874d9f4684145d77a49, type: 2}
   gruntShip: {fileID: 1035054132785258, guid: af2c8a20f1d92874d9f4684145d77a49, type: 2}

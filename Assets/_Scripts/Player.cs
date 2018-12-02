@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
     [Header("Player Stats")]
     public float speed = 30f; // speed of ship movement
     public GameObject healthBar;
+    public GameObject forceField;
 
     [Header("Score Text")]
     public Text scoreText;
@@ -59,6 +60,7 @@ public class Player : MonoBehaviour {
         {
             speed = 70f;
             Invoke("RevertSpeedBoost", 0.5f);
+            forceField.SetActive(true);
         }
 
         scoreText.text = "SCORE: " + EnemyShip.score.ToString();
@@ -68,6 +70,7 @@ public class Player : MonoBehaviour {
     void RevertSpeedBoost()
     {
         speed = 30f;
+        forceField.SetActive(false);
     }
 
     public Quaternion GetRotation()
@@ -79,7 +82,7 @@ public class Player : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         // update player health
-        playerHealth -= 10;
+        if (!forceField.activeInHierarchy) playerHealth -= 10;
 
         // end game if health bar = 0 
         if (playerHealth == 0)

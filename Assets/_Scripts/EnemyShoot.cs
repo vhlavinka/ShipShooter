@@ -38,14 +38,16 @@ public class EnemyShoot : MonoBehaviour
         {
             // Create the projectile
             vfx = Instantiate(effectToSpawn, firePoint.transform.position, Quaternion.identity);
+            
             // Point projectile in same direction as mouse
             if (enemyShip != null)
             {
                 vfx.transform.localRotation = enemyShip.GetRotation();
-                if(enemyShip.type == ShipType.SixPoint )
+                if(enemyShip.type == ShipType.FourPoint )
                 {
-                    vfx.transform.localRotation = Quaternion.identity;
+                    vfx.transform.localRotation = transform.localRotation;
                 }
+              
             }
         }
         else
