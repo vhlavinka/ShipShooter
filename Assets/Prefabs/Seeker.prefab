@@ -263,11 +263,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b205337dcee16748a93c3173c5dbfa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 0}
   flyInTime: 3
   speed: 10
   chanceToChangeDirections: 0.1
   leftRightEdge: 90
   upDownEdge: 20
+  type: 0
 --- !u!114 &114559764654208384
 MonoBehaviour:
   m_ObjectHideFlags: 1

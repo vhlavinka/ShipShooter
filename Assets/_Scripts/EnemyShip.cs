@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
  * This script handles different types of ships including their health, behavior, movement
@@ -79,6 +80,7 @@ public class EnemyShip : MonoBehaviour {
         {
             Destroy(gameObject);
             score += 100;
+            
         }
 
         // Controls how each ship behaves

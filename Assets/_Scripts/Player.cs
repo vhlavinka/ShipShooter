@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class Player : MonoBehaviour {
 
+    [Header("Player Stats")]
     public float speed = 30f; // speed of ship movement
     public GameObject healthBar;
+
+    [Header("Score Text")]
+    public Text scoreText;
 
     //private Rigidbody rb;
     private Quaternion rotation;
@@ -53,6 +60,8 @@ public class Player : MonoBehaviour {
             speed = 70f;
             Invoke("RevertSpeedBoost", 0.5f);
         }
+
+        scoreText.text = "SCORE: " + EnemyShip.score.ToString();
     }
 
     // put speed back to normal
@@ -69,13 +78,20 @@ public class Player : MonoBehaviour {
     // take hp away when hit with enemy projectiles
     void OnCollisionEnter(Collision collision)
     {
-        print(playerHealth);
+        // update player health
         playerHealth -= 10;
 
-        // update health bar
-        healthBar.transform.localScale -= new Vector3(0.1f, 0, 0);
+        // end game if health bar = 0 
+        if (playerHealth == 0)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
 
-        // make certain projectiles do more damage
+        // update health bar
+        healthBar.transform.localScale = new Vector3(playerHealth * Mathf.Pow(10, -2),
+                    healthBar.transform.localScale.y,
+                    healthBar.transform.localScale.z);
+
     }
 }
 
