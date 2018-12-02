@@ -22,7 +22,6 @@ public class ProjectileMove : MonoBehaviour {
     // Delete projectiles upon collision with object or outer boundary walls
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("COLLISION WITH: " + collision.gameObject.name);
         speed = 0;
         Destroy(gameObject); // added a "Player" layer so projectiles won't accidently be destroyed       
     }

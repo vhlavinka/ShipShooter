@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    public float speed = 30f;
+    public float speed = 30f; // speed of ship movement
+    public GameObject healthBar;
 
     //private Rigidbody rb;
     private Quaternion rotation;
+    private int playerHealth = 100;
 
 
 	void Start () {
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour {
         }
     }
 
+    // put speed back to normal
     void RevertSpeedBoost()
     {
         speed = 30f;
@@ -61,6 +64,18 @@ public class Player : MonoBehaviour {
     public Quaternion GetRotation()
     {
         return rotation;
+    }
+    
+    // take hp away when hit with enemy projectiles
+    void OnCollisionEnter(Collision collision)
+    {
+        print(playerHealth);
+        playerHealth -= 10;
+
+        // update health bar
+        healthBar.transform.localScale -= new Vector3(0.1f, 0, 0);
+
+        // make certain projectiles do more damage
     }
 }
 
