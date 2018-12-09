@@ -14,13 +14,12 @@ public class Player : MonoBehaviour {
     [Header("Utilities")]
     public GameObject forceField;  // absorbs enemy projectiles when activated
 
-
     [Header("Score Text")]
     public Text scoreText;
 
+    [Header("Player movement and health")]
     private Quaternion rotation;
     private int playerHealth = 100;
-
 
     void Update()
     {
@@ -31,25 +30,26 @@ public class Player : MonoBehaviour {
             Invoke("RevertSpeedBoost", 0.5f);
             forceField.SetActive(true);
         }
+            
     }
 
     void FixedUpdate () {
         // Movement Controls
         Vector3 pos = transform.position;
 
-        if (Input.GetKey("w"))
+        if (Input.GetKey("w") && pos.z < 45)
         {
             pos.z += speed * Time.deltaTime;
         }
-        if (Input.GetKey("s"))
+        if (Input.GetKey("s") && pos.z > -45)
         {
             pos.z -= speed * Time.deltaTime;
         }
-        if (Input.GetKey("d"))
+        if (Input.GetKey("d") && pos.x < 85)
         {
             pos.x += speed * Time.deltaTime;
         }
-        if (Input.GetKey("a"))
+        if (Input.GetKey("a") && pos.x > -85)
         {
             pos.x -= speed * Time.deltaTime;
         }

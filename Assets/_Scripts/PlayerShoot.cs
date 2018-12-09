@@ -3,23 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour {
+    [Header("Player firing point")]
     public GameObject firePoint;
-    public List<GameObject> vfx = new List<GameObject>();
     public Player player;
 
+    [Header("Add 1 to the list and set projectile")]
+    public List<GameObject> vfx = new List<GameObject>();
+
+    [Header("Force Field")]
+    public GameObject forceField;
+
+    [Header("Set Audio Clip")]
+    public AudioClip shootSound;
+
+    [Header("Audio Settings")]
+    private AudioSource source;
+
+    [Header("Set Dynamically")]
     private GameObject effectToSpawn;
     private float timeToFire = 0;
 
+    void Awake()
+    {
+        // set audio source
+        source = GetComponent<AudioSource>();
+    }
 
-	void Start () {
+    void Start () {
         effectToSpawn = vfx[0];
-	}
+    }
 	
 	void Update () {
         if (Input.GetMouseButton(0) && Time.time >= timeToFire)
         {
+            if(gameObject.name=="FirepointRight" && !forceField.activeSelf) source.PlayOneShot(shootSound, 1.0f);
             timeToFire = Time.time + 1 / effectToSpawn.GetComponent<ProjectileMove>().fireRate;
-            SpawnVFX();
+            SpawnVFX();   
         }
 	}
 

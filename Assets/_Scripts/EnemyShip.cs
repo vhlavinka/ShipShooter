@@ -63,8 +63,22 @@ public class EnemyShip : MonoBehaviour {
             // Make ship fly in from top
             float fracComplete = (Time.time - startTime) / flyInTime;
 
-            transform.position = Vector3.Lerp(startPos,
-                new Vector3(startPos.x, startPos.y, 30), fracComplete);
+            // if it spawned top
+            if (startPos.x >= -50 && startPos.x <= 50)
+                transform.position = Vector3.Lerp(startPos,
+                    new Vector3(startPos.x, startPos.y, 30), fracComplete);
+            // if it spawned left
+            else if (startPos.z >= -95)
+                transform.position = Vector3.Lerp(startPos,
+                    new Vector3(-45, startPos.y, startPos.z), fracComplete);
+            // if it spawned right
+            else if (startPos.x <= 95)
+                transform.position = Vector3.Lerp(startPos,
+                    new Vector3(45, startPos.y, startPos.z), fracComplete);
+
+
+
+
         }
         else
         {

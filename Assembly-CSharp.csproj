@@ -67,6 +67,7 @@
     <Compile Include="Assets\_Scripts\PlayerScore.cs" />
     <Compile Include="Assets\_Scripts\PlayerShoot.cs" />
     <Compile Include="Assets\_Scripts\ProjectileMove.cs" />
+    <Compile Include="Assets\_Scripts\RotateSky.cs" />
     <Compile Include="Assets\_Scripts\RotateToMouse.cs" />
     <Compile Include="Assets\_Scripts\SpawnEnemies.cs" />
     <Reference Include="UnityEditor.StandardEvents">

@@ -33,7 +33,7 @@ public class SpawnEnemies : MonoBehaviour {
         Invoke("LevelOneTest", 5f); // first ship spawned
         gameStartTime = Time.time;
 
-        Invoke("SpawnHealthCloud", 10f); // spawn health cloud after one minute
+        Invoke("SpawnHealthCloud", 10f); // begin to spawn health clouds
     }
 	
 	void Update () {
@@ -224,16 +224,36 @@ public class SpawnEnemies : MonoBehaviour {
     {
         // Chose a random fly in point
         float randFlyInPoint = Random.value; // choose random x value for fly in point
-        float leftOrRight = Random.value; // 50% change it will be negative or positive of x-axis
+        float randX = Random.value; // 50% change it will be negative or positive of x-axis
+        float randZ = Random.value;
         Vector3 flyInPointV; // this vector holds the point for the ship to lerp to
 
-        if (leftOrRight > .50f)
-        {
-            flyInPointV = new Vector3(randFlyInPoint * -50, -2, 85);
+        // randomly negative or positive
+        float nOrP = Random.value;
+
+        // Top
+        if (randFlyInPoint >= .66f)
+        {           
+            if (nOrP >= .50f)
+                flyInPointV = new Vector3(randX * 50, -2, 85);
+            else
+                flyInPointV = new Vector3(randX * -50, -2, 85);
         }
-        else
+        // Left
+        else if (randFlyInPoint >= .33f)
         {
-            flyInPointV = new Vector3(randFlyInPoint * 50, -2, 85);
+            if (nOrP >= .50f)
+                flyInPointV = new Vector3(-95, -2, randZ * 30);
+            else
+                flyInPointV = new Vector3(-95, -2, randZ * -30);
+        }
+        // Right
+        else 
+        {
+            if (nOrP >= .50f)
+                flyInPointV = new Vector3(95, -2, randZ * 30);
+            else
+                flyInPointV = new Vector3(95, -2, randZ * -30);
         }
 
         return flyInPointV;
