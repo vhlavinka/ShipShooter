@@ -17,9 +17,22 @@ public class Player : MonoBehaviour {
     [Header("Score Text")]
     public Text scoreText;
 
+    [Header("Sounds")]
+    public AudioClip playerHitSound;
+    public AudioClip gainHealthSound;
+
     [Header("Player movement and health")]
     private Quaternion rotation;
     private int playerHealth = 100;
+
+    [Header("Audio Settings")]
+    private AudioSource source;
+
+    void Start()
+    {
+        // set audio source
+        source = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -84,7 +97,8 @@ public class Player : MonoBehaviour {
         Debug.Log("Before: " + playerHealth);
         
         if (collision.name == "HealthCloud(Clone)" && playerHealth < 100)
-        {   
+        {
+            source.PlayOneShot(gainHealthSound, 1.0f);
             playerHealth += 10;
             Destroy(collision.gameObject);
             Debug.Log("After: " + playerHealth);
@@ -100,8 +114,11 @@ public class Player : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         // update player health
-        if (!forceField.activeInHierarchy) playerHealth -= 10;
-
+        if (!forceField.activeInHierarchy)
+        {
+            source.PlayOneShot(playerHitSound, 1.0f);
+            playerHealth -= 10;
+        }
         // end game if health bar = 0 
         if (playerHealth == 0)
         {

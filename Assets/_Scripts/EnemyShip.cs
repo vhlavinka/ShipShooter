@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /*
  * This script handles different types of ships including their health, behavior, movement
@@ -41,11 +42,11 @@ public class EnemyShip : MonoBehaviour {
         if (type == ShipType.FourPoint)
         {
             Health = 150;
+            
         }
         else if(type == ShipType.Seeker)
         {
             Health = 40;
-            
         }
         else if (type == ShipType.Grunt)
         {
@@ -64,20 +65,17 @@ public class EnemyShip : MonoBehaviour {
             float fracComplete = (Time.time - startTime) / flyInTime;
 
             // if it spawned top
-            if (startPos.x >= -50 && startPos.x <= 50)
+            if (startPos.z >= 85)
                 transform.position = Vector3.Lerp(startPos,
                     new Vector3(startPos.x, startPos.y, 30), fracComplete);
             // if it spawned left
-            else if (startPos.z >= -95)
+            else if (startPos.x <= -90)
                 transform.position = Vector3.Lerp(startPos,
                     new Vector3(-45, startPos.y, startPos.z), fracComplete);
             // if it spawned right
-            else if (startPos.x <= 95)
+            else if (startPos.x >= 90)
                 transform.position = Vector3.Lerp(startPos,
                     new Vector3(45, startPos.y, startPos.z), fracComplete);
-
-
-
 
         }
         else

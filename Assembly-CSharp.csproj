@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\_Scripts\EnemyShip.cs" />
     <Compile Include="Assets\_Scripts\EnemyShoot.cs" />
+    <Compile Include="Assets\_Scripts\GameOver.cs" />
     <Compile Include="Assets\_Scripts\Player.cs" />
     <Compile Include="Assets\_Scripts\PlayerScore.cs" />
     <Compile Include="Assets\_Scripts\PlayerShoot.cs" />
@@ -70,6 +71,8 @@
     <Compile Include="Assets\_Scripts\RotateSky.cs" />
     <Compile Include="Assets\_Scripts\RotateToMouse.cs" />
     <Compile Include="Assets\_Scripts\SpawnEnemies.cs" />
+    <Compile Include="Assets\_Scripts\StartScreen.cs" />
+    <Compile Include="Assets\_Scripts\TutorialButtons.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/la_le.DESKTOP-OVQ948Q/OneDrive/Documents/UnityProjects/ArcadeShooter/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
