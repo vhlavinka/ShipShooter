@@ -14,20 +14,54 @@ public class EnemyShoot : MonoBehaviour
 
     private GameObject effectToSpawn;
     private float timeToFire = 0;
+    private LineRenderer lr;
 
 
     void Start()
     {
-        effectToSpawn = vfx[0];
+        
+        if (enemyShip.type == ShipType.Grunt)
+            lr = GetComponent<LineRenderer>();
+        else
+            effectToSpawn = vfx[0];
     }
 
     void Update()
     {
-        if (Time.time >= timeToFire)
+        switch (enemyShip.type)
         {
-            timeToFire = Time.time + 1 / effectToSpawn.GetComponent<ProjectileMove>().fireRate;
-            SpawnVFX();
+            case ShipType.Grunt:
+                lr.SetPosition(0, transform.position);
+                RaycastHit hit;
+
+
+                int layerMask = 1 << 9; // ignore everything except player
+
+                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+                {
+                    if (hit.collider)
+                    {
+                        lr.SetPosition(1, hit.point);
+                    }
+                }
+                else
+                {
+                    lr.SetPosition(1, transform.forward * 5000);
+                }
+
+                break;
+            case ShipType.FourPoint:
+            case ShipType.Seeker:
+                if (Time.time >= timeToFire)
+                {
+                    timeToFire = Time.time + 1 / effectToSpawn.GetComponent<ProjectileMove>().fireRate;
+                    SpawnVFX();
+                }
+                break;
+            default:
+                break;
         }
+        
     }
 
     void SpawnVFX()

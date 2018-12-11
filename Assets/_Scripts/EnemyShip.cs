@@ -24,6 +24,7 @@ public class EnemyShip : MonoBehaviour {
     public float leftRightEdge = 80f;
     public float upDownEdge = 20f;
     public float rotateSpeed = 0.5f;
+    public float rotateSpeedGrunt = 0.25f;
 
     [Header("Type of Ship")]
     public ShipType type;  // Holds the type of ship 
@@ -42,28 +43,34 @@ public class EnemyShip : MonoBehaviour {
         if (type == ShipType.FourPoint)
         {
             Health = 150;
-            
+            Invoke("ShipMovement", 4);
+
         }
         else if(type == ShipType.Seeker)
         {
             Health = 40;
+            Invoke("ShipMovement", 4);
         }
         else if (type == ShipType.Grunt)
         {
             Health = 25;
+            RandVector();
+            Invoke("ShipMovement", 4);
         }
 
-        Invoke("ShipMovement", 4);
+
+        
 
     }
 	
 	void Update () {
 
+
         if(Time.time < 6f + startTime)
         {
-            // Make ship fly in from top
+            // Track time for Lerp
             float fracComplete = (Time.time - startTime) / flyInTime;
-
+    
             // if it spawned top
             if (startPos.z >= 85)
                 transform.position = Vector3.Lerp(startPos,
@@ -114,34 +121,43 @@ public class EnemyShip : MonoBehaviour {
 
     void ShipMovement()
     {
-        // activate the firepoints
-        foreach (Transform child in transform)
-            child.gameObject.SetActive(true);
+        switch(type){
+            case ShipType.FourPoint:
+            case ShipType.Seeker:   
+                // activate the firepoints
+                foreach (Transform child in transform)
+                    child.gameObject.SetActive(true);
 
-        startMoving = true; // make sure ship is allowed to start moving
+                startMoving = true; // make sure ship is allowed to start moving
   
-        Vector3 pos = transform.position;
-        pos.x += speed * Time.deltaTime;
-        pos.z += speed * Time.deltaTime;
-        transform.position = pos;
+                Vector3 pos = transform.position;
+                pos.x += speed * Time.deltaTime;
+                pos.z += speed * Time.deltaTime;
+                transform.position = pos;
 
-        // Ensure ship does not move off screen
-        if (pos.x < -leftRightEdge)
-        {
-            speed = Mathf.Abs(speed);
-        }
-        else if (pos.x > leftRightEdge)
-        {
-            speed = -Mathf.Abs(speed);
-        }
+                // Ensure ship does not move off screen
+                if (pos.x < -leftRightEdge)
+                {
+                    speed = Mathf.Abs(speed);
+                }
+                else if (pos.x > leftRightEdge)
+                {
+                    speed = -Mathf.Abs(speed);
+                }
 
-        if (pos.z < -upDownEdge)
-        {
-            speed = Mathf.Abs(speed);
-        }
-        else if (pos.z > upDownEdge)
-        {
-            speed = -Mathf.Abs(speed);
+                if (pos.z < -upDownEdge)
+                {
+                    speed = Mathf.Abs(speed);
+                }
+                else if (pos.z > upDownEdge)
+                {
+                    speed = -Mathf.Abs(speed);
+                }
+                break;
+            case ShipType.Grunt:
+                break;
+            default:
+                break;
         }
     }
 
@@ -163,7 +179,7 @@ public class EnemyShip : MonoBehaviour {
                 RotateToPlayer(gameObject, psPos);
                 break;
             case ShipType.Grunt:
-                RotateToPlayer(gameObject, psPos);
+                transform.Rotate(new Vector3(0, rotateSpeedGrunt, 0));
                 break;
             default:
                 break;
@@ -180,6 +196,17 @@ public class EnemyShip : MonoBehaviour {
     public Quaternion GetRotation()
     {
         return rotation;
+    }
+
+    public Vector3 RandVector()
+    {
+        // Choose random x & z values
+        float rx = Random.value * 80;
+        float rz = Random.value * 50;
+
+        Vector3 randomVector = new Vector3(rx * leftRightEdge, -2, rz * upDownEdge);
+
+        return randomVector;
     }
 
     public int Health { get; set; }

@@ -73,6 +73,7 @@
     <Compile Include="Assets\_Scripts\SpawnEnemies.cs" />
     <Compile Include="Assets\_Scripts\StartScreen.cs" />
     <Compile Include="Assets\_Scripts\TutorialButtons.cs" />
+    <Compile Include="Assets\laserScript.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/la_le.DESKTOP-OVQ948Q/OneDrive/Documents/UnityProjects/ArcadeShooter/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
