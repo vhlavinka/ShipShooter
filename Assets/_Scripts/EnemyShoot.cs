@@ -11,6 +11,9 @@ public class EnemyShoot : MonoBehaviour
     public GameObject firePoint;
     public List<GameObject> vfx = new List<GameObject>();
     public EnemyShip enemyShip;
+    public Player playerShip;
+
+    public static int layerMask;
 
     private GameObject effectToSpawn;
     private float timeToFire = 0;
@@ -19,7 +22,8 @@ public class EnemyShoot : MonoBehaviour
 
     void Start()
     {
-        
+        layerMask = 1 << 9; // ignore everything except player
+
         if (enemyShip.type == ShipType.Grunt)
             lr = GetComponent<LineRenderer>();
         else
@@ -34,14 +38,16 @@ public class EnemyShoot : MonoBehaviour
                 lr.SetPosition(0, transform.position);
                 RaycastHit hit;
 
-
-                int layerMask = 1 << 9; // ignore everything except player
-
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
                 {
                     if (hit.collider)
                     {
                         lr.SetPosition(1, hit.point);
+                        
+                        // update playerHealth
+                        playerShip.playerHealth -= 0.33f;
+                        playerShip.updateHealthBar();
+                        print(playerShip.playerHealth);
                     }
                 }
                 else

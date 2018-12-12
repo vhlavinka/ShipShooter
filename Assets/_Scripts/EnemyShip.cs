@@ -31,13 +31,16 @@ public class EnemyShip : MonoBehaviour {
 
     [Header("Private")]
     private Vector3 startPos;
+    private Vector3 endPos;
     private float startTime; // Start time from when ship is spawned
+    private float timeCounter;
     private bool startMoving = false;
     private Quaternion rotation; // track rotation of ship
 
     void Awake () {
         // Set start time and position
         startTime = Time.time;
+        
         startPos = transform.position;
 
         if (type == ShipType.FourPoint)
@@ -53,20 +56,21 @@ public class EnemyShip : MonoBehaviour {
         }
         else if (type == ShipType.Grunt)
         {
-            Health = 25;
+            Health = 20;
             RandVector();
             Invoke("ShipMovement", 4);
         }
-
-
-        
-
     }
-	
-	void Update () {
 
+    private void Start()
+    {
+        timeCounter = 0;
+    }
 
-        if(Time.time < 6f + startTime)
+    void Update () {
+        timeCounter = Time.deltaTime;
+
+        if (Time.time < 6f + startTime)
         {
             // Track time for Lerp
             float fracComplete = (Time.time - startTime) / flyInTime;
@@ -83,20 +87,24 @@ public class EnemyShip : MonoBehaviour {
             else if (startPos.x >= 90)
                 transform.position = Vector3.Lerp(startPos,
                     new Vector3(45, startPos.y, startPos.z), fracComplete);
+            // if it spawned top
+            else if (startPos.z >= -85)
+                transform.position = Vector3.Lerp(startPos,
+                    new Vector3(startPos.x, startPos.y, -20), fracComplete);
 
+            endPos = transform.position;
         }
         else
         {
             // Allow the ship to start moving when done spawning
-            if (startMoving) ShipMovement();
+            if (startMoving) ShipMovement();  
         }              
 
         // Track the ship's health
         if (gameObject != null && Health < 0)
         {
             Destroy(gameObject);
-            score += 100;
-            
+            score += 100;     
         }
 
         // Controls how each ship behaves
@@ -122,6 +130,7 @@ public class EnemyShip : MonoBehaviour {
     void ShipMovement()
     {
         switch(type){
+            // FourPoint and Seeker ship will move randomly
             case ShipType.FourPoint:
             case ShipType.Seeker:   
                 // activate the firepoints
@@ -155,6 +164,8 @@ public class EnemyShip : MonoBehaviour {
                 }
                 break;
             case ShipType.Grunt:
+                foreach (Transform child in transform)
+                    child.gameObject.SetActive(true);
                 break;
             default:
                 break;

@@ -22,11 +22,13 @@ public class Player : MonoBehaviour {
     public AudioClip gainHealthSound;
 
     [Header("Player movement and health")]
-    private Quaternion rotation;
-    private int playerHealth = 100;
+    public Quaternion rotation;
+    public float playerHealth = 100;
 
     [Header("Audio Settings")]
     private AudioSource source;
+
+    private bool playerDied;
 
     void Start()
     {
@@ -36,45 +38,50 @@ public class Player : MonoBehaviour {
 
     void Update()
     {
-        // Speed-dodge when spacebar is pressed
-        if (Input.GetKeyDown("space"))
+        if (!playerDied)
         {
-            speed = 70f;
-            Invoke("RevertSpeedBoost", 0.5f);
-            forceField.SetActive(true);
+            // Speed-dodge when spacebar is pressed
+            if (Input.GetKeyDown("space"))
+            {
+                speed = 70f;
+                Invoke("RevertSpeedBoost", 0.5f);
+                forceField.SetActive(true);
+            }
         }
-            
     }
 
     void FixedUpdate () {
-        // Movement Controls
-        Vector3 pos = transform.position;
+        if (!playerDied)
+        {
+            // Movement Controls
+            Vector3 pos = transform.position;
 
-        if (Input.GetKey("w") && pos.z < 45)
-        {
-            pos.z += speed * Time.deltaTime;
-        }
-        if (Input.GetKey("s") && pos.z > -45)
-        {
-            pos.z -= speed * Time.deltaTime;
-        }
-        if (Input.GetKey("d") && pos.x < 85)
-        {
-            pos.x += speed * Time.deltaTime;
-        }
-        if (Input.GetKey("a") && pos.x > -85)
-        {
-            pos.x -= speed * Time.deltaTime;
-        }
-        transform.position = pos;
+            if (Input.GetKey("w") && pos.z < 45)
+            {
+                pos.z += speed * Time.deltaTime;
+            }
+            if (Input.GetKey("s") && pos.z > -45)
+            {
+                pos.z -= speed * Time.deltaTime;
+            }
+            if (Input.GetKey("d") && pos.x < 85)
+            {
+                pos.x += speed * Time.deltaTime;
+            }
+            if (Input.GetKey("a") && pos.x > -85)
+            {
+                pos.x -= speed * Time.deltaTime;
+            }
+            transform.position = pos;
 
-        // Make the player face the mouse
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = new Vector3(mousePos.x,
-            transform.position.y,
-            mousePos.z);
-        rotation = Quaternion.LookRotation(direction - transform.position);
-        transform.rotation = rotation;
+            // Make the player face the mouse
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 direction = new Vector3(mousePos.x,
+                transform.position.y,
+                mousePos.z);
+            rotation = Quaternion.LookRotation(direction - transform.position);
+            transform.rotation = rotation;
+        }
 
         scoreText.text = "SCORE: " + EnemyShip.score.ToString();
     }
@@ -103,32 +110,50 @@ public class Player : MonoBehaviour {
             Destroy(collision.gameObject);
             Debug.Log("After: " + playerHealth);
 
-            // update health bar
-            healthBar.transform.localScale = new Vector3(playerHealth * Mathf.Pow(10, -2),
-                        healthBar.transform.localScale.y,
-                        healthBar.transform.localScale.z);
+            updateHealthBar();
         }
     }
 
     // take hp away when hit with enemy projectiles
     void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision);
+        
         // update player health
         if (!forceField.activeInHierarchy)
         {
             source.PlayOneShot(playerHitSound, 1.0f);
-            playerHealth -= 10;
-        }
-        // end game if health bar = 0 
-        if (playerHealth == 0)
-        {
-            SceneManager.LoadScene("GameOver");
+           
+            if (playerHealth < 10 && playerHealth > 0)
+                playerHealth -= playerHealth;   // prevent from subtracting 10 health if player health is already < 10
+            else
+                playerHealth -= 10;
         }
 
-        // update health bar
-        healthBar.transform.localScale = new Vector3(playerHealth * Mathf.Pow(10, -2),
-                    healthBar.transform.localScale.y,
-                    healthBar.transform.localScale.z);
+        updateHealthBar();
+
+    }
+
+    // update the health bar, also used in EnemyShoot for grunt laser
+    public void updateHealthBar()
+    {
+        if(playerHealth >= 0)
+        {
+            // update health bar
+            healthBar.transform.localScale = new Vector3(playerHealth * Mathf.Pow(10, -2),
+                        healthBar.transform.localScale.y,
+                        healthBar.transform.localScale.z);
+        }
+        else
+        {
+            playerDied = true;
+            Invoke("LoadGameOver", 2f);
+        }
+    }
+
+    void LoadGameOver()
+    {
+        SceneManager.LoadScene("GameOver");
     }
 }
 
