@@ -17,7 +17,9 @@ public class GameOver : MonoBehaviour
         Button quitBtn = m_QuitButton.GetComponent<Button>();
 
         startBtn.onClick.AddListener(startGameOnClick);
-        quitBtn.onClick.AddListener(quitGameOnClick); 
+        quitBtn.onClick.AddListener(quitGameOnClick);
+
+        m_score.text = "Your Score: " + EnemyShip.score;
 
     }
 

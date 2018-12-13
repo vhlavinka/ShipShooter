@@ -285,4 +285,5 @@ MonoBehaviour:
   firePoint: {fileID: 1576499136924546}
   vfx:
   - {fileID: 1818633271587430, guid: 259e681e9f0fe5140823b8a6fb5af0e7, type: 2}
+  - {fileID: 1818633271587430, guid: 4a583c4c62bb797469eddad9855c6a69, type: 2}
   enemyShip: {fileID: 114091728133835340}

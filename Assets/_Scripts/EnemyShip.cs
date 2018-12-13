@@ -60,11 +60,6 @@ public class EnemyShip : MonoBehaviour {
         }
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update () {
 
         if (Time.time < 6f + startTime)

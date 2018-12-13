@@ -29,7 +29,18 @@ public class EnemyShoot : MonoBehaviour
         if (enemyShip.type == ShipType.Grunt)
             lr = GetComponent<LineRenderer>();
         else
-            effectToSpawn = vfx[0];
+        {
+            if(enemyShip.type == ShipType.Seeker && SpawnEnemies.sceneSequence >= 3)
+            {
+                effectToSpawn = vfx[1];
+            }
+            else
+            {
+                effectToSpawn = vfx[0];
+            }
+            
+        }
+            
 
         playerShip = GameObject.Find("Ship").GetComponent<Player>();       
     }

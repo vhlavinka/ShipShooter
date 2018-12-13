@@ -80,8 +80,24 @@ public class SpawnEnemies : MonoBehaviour {
             // Begin level
             Invoke("LevelTwo", 5f);
         }
+        else if (scene.name == "Level_3")
+        {
+            // Set scene to #1
+            sceneSequence = 3;
 
-        if(sceneSequence!=0)
+            // Begin level
+            Invoke("LevelThree", 5f);
+        }
+        else if (scene.name == "Level_4")
+        {
+            // Set scene to #1
+            sceneSequence = 4;
+
+            // Begin level
+            Invoke("LevelFour", 5f);
+        }
+
+        if (sceneSequence!=0)
             Invoke("SpawnHealthCloud", 10f); // begin to spawn health clouds (health packs)
 
         txtLevel.text = "Level " + sceneSequence;
@@ -452,19 +468,23 @@ public class SpawnEnemies : MonoBehaviour {
             case 1:
                 TipTextUpdate();
 
-                // 2 FP
-                for (int i = 2; i > countFP; countFP++)
-                {
-                    spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
-                }
+                // 1 FP
+                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+
+                // 2 grunts
+                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
+                spShip = Instantiate(gruntShip, new Vector3(15, -2, 85), Quaternion.Euler(0, 90, 0));
 
                 Invoke("LevelThree", 20f);
                 break;
             case 2:
                 TipTextUpdate();
 
-                // 1 grunt
+                // 4 grunts
                 spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
+                spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.Euler(0, 180, 0));
+                spShip = Instantiate(gruntShip, new Vector3(-95, -2, 0), Quaternion.Euler(0, 180, 0));
+                spShip = Instantiate(gruntShip, new Vector3(95, -2, 0), Quaternion.Euler(0, 180, 0));
 
                 // 1 FP
                 spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
@@ -474,8 +494,8 @@ public class SpawnEnemies : MonoBehaviour {
             case 3:
                 TipTextUpdate();
 
-                // 6 seekers
-                for (int i = 6; i > countSeeker; countSeeker++)
+                // 3 seekers
+                for (int i = 3; i > countSeeker; countSeeker++)
                 {
                     spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
                 }
@@ -504,7 +524,8 @@ public class SpawnEnemies : MonoBehaviour {
                 spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
                 spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
 
-                // 1 FP
+                // 2 FP
+                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
                 spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
 
                 Invoke("LevelThree", 20f);
@@ -553,6 +574,9 @@ public class SpawnEnemies : MonoBehaviour {
         // Create new ship GO
         GameObject spShip;
 
+        // Create new ship obj
+        EnemyShip spShipObj;
+
         // Chose a random fly in point
         float randFlyInPoint = Random.value; // choose random x value for fly in point
         float leftOrRight = Random.value; // 50% change it will be negative or positive of x-axis
@@ -566,39 +590,16 @@ public class SpawnEnemies : MonoBehaviour {
             case 1:
                 TipTextUpdate();
 
-                // 2 FP
-                for (int i = 2; i > countFP; countFP++)
-                {
-                    spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
-                }
-
-                Invoke("LevelFour", 20f);
-                break;
-            case 2:
-                TipTextUpdate();
-
-                // 1 grunt
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
-
-                // 1 FP
-                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
-
-                Invoke("LevelFour", 15f);
-                break;
-            case 3:
-                TipTextUpdate();
-
-                // 6 seekers
-                for (int i = 6; i > countSeeker; countSeeker++)
+                // 5 seekers
+                for (int i = 5; i > countSeeker; countSeeker++)
                 {
                     spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
                 }
 
                 Invoke("LevelFour", 20f);
                 break;
-            case 4:
+            case 2:
                 TipTextUpdate();
-
                 // 2 grunts
                 spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
                 spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
@@ -611,40 +612,125 @@ public class SpawnEnemies : MonoBehaviour {
 
                 Invoke("LevelFour", 15f);
                 break;
+            case 3:
+                TipTextUpdate();
+
+                // 6 grunts 
+                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.Euler(0, 60, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.Euler(0, 120, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                spShip = Instantiate(gruntShip, new Vector3(-95, -2, 20), Quaternion.Euler(0, 180, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                spShip = Instantiate(gruntShip, new Vector3(95, -2, -20), Quaternion.Euler(0, 240, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                spShip = Instantiate(gruntShip, new Vector3(-95, -2, 40), Quaternion.Euler(0, 300, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                spShip = Instantiate(gruntShip, new Vector3(95, -2, -40), Quaternion.Euler(0, 360, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                Invoke("LevelFour", 8f);
+                break;
+            case 4:
+                TipTextUpdate();
+
+                // 5 seekers
+                for (int i = 5; i > countSeeker; countSeeker++)
+                {
+                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                }
+
+                Invoke("LevelFour", 20f);
+                break;
             case 5:
                 TipTextUpdate();
 
-                // 2 grunts
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
+                // 6 grunts top  
+                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.Euler(0, 60, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
 
-                // 1 FP
-                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                spShip = Instantiate(gruntShip, new Vector3(0, -2.10f, 85), Quaternion.Euler(0, 120, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
 
-                Invoke("LevelFour", 20f);
+                spShip = Instantiate(gruntShip, new Vector3(0, -2.20f, 85), Quaternion.Euler(0, 180, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                spShip = Instantiate(gruntShip, new Vector3(0, -2.30f, 85), Quaternion.Euler(0, 240, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                spShip = Instantiate(gruntShip, new Vector3(0, -2.30f, 85), Quaternion.Euler(0, 300, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                spShip = Instantiate(gruntShip, new Vector3(0, -2.50f, 85), Quaternion.Euler(0, 360, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+
+                // 6 grunts bottom
+                spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.Euler(0, 60, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                spShip = Instantiate(gruntShip, new Vector3(0, -2.10f, -85), Quaternion.Euler(0, 120, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                spShip = Instantiate(gruntShip, new Vector3(0, -2.20f, -85), Quaternion.Euler(0, 180, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                spShip = Instantiate(gruntShip, new Vector3(0, -2.30f, -85), Quaternion.Euler(0, 240, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                spShip = Instantiate(gruntShip, new Vector3(0, -2.30f, -85), Quaternion.Euler(0, 300, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                spShip = Instantiate(gruntShip, new Vector3(0, -2.50f, -85), Quaternion.Euler(0, 360, 0));
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
+
+                Invoke("LevelFour", 10f);
                 break;
             case 6:
                 TipTextUpdate();
 
-                int shiftX = 0;
+                // 4 grunts, one in each corner
+                spShip = Instantiate(gruntShip, new Vector3(50, -2, 85), Quaternion.identity);
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
 
-                if (countGrunt == 0)
-                    shiftX = 15;
-                else if (countGrunt == 1)
-                    shiftX = 30;
-                else if (countGrunt == 2)
-                    shiftX = 45;
-                else
-                    shiftX = 60;
+                spShip = Instantiate(gruntShip, new Vector3(-50, -2, 85), Quaternion.identity);
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
 
-                // 4 grunts
-                spShip = Instantiate(gruntShip, new Vector3(-shiftX, -2, 85), Quaternion.identity);
+                spShip = Instantiate(gruntShip, new Vector3(50, -2, -85), Quaternion.identity);
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
 
-                spShip = Instantiate(gruntShip, new Vector3(shiftX, -2, 85), Quaternion.identity);
+                spShip = Instantiate(gruntShip, new Vector3(-50, -2, -85), Quaternion.identity);
+                spShipObj = spShip.GetComponent<EnemyShip>();
+                spShipObj.rotateSpeedGrunt = .25f;
 
-                spShip = Instantiate(gruntShip, new Vector3(-shiftX, -2, -85), Quaternion.identity);
-
-                spShip = Instantiate(gruntShip, new Vector3(shiftX, -2, -85), Quaternion.identity);
+                // 1 FP
+                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
 
                 // 1 FP
                 spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
