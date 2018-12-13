@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.11122624, g: 0.09687773, b: 0.19428065, a: 1}
+  m_IndirectSpecularColor: {r: 0.08779485, g: 0.07844224, b: 0.16186929, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1188,11 +1188,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4900648178630614, guid: 31a43499b5d573c49b4bfaa4c35fd146, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4900648178630614, guid: 31a43499b5d573c49b4bfaa4c35fd146, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 4900648178630614, guid: 31a43499b5d573c49b4bfaa4c35fd146, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1214,9 +1214,29 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 114412062511739414, guid: 31a43499b5d573c49b4bfaa4c35fd146,
+        type: 2}
+      propertyPath: forceField
+      value: 
+      objectReference: {fileID: 963305218}
+    - target: {fileID: 114412062511739414, guid: 31a43499b5d573c49b4bfaa4c35fd146,
+        type: 2}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 1338777479}
+    - target: {fileID: 114412062511739414, guid: 31a43499b5d573c49b4bfaa4c35fd146,
+        type: 2}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 642933154}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31a43499b5d573c49b4bfaa4c35fd146, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &963305218 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1381734187110044, guid: 31a43499b5d573c49b4bfaa4c35fd146,
+    type: 2}
+  m_PrefabInternal: {fileID: 963305217}
 --- !u!1 &1153579656
 GameObject:
   m_ObjectHideFlags: 0

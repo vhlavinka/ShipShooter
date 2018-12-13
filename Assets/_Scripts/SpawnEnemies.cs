@@ -35,11 +35,15 @@ public class SpawnEnemies : MonoBehaviour {
     private int tipSequence;
     private float tipTime = 2f;
 
-    [Header("Use GameObject.Find on these")]
+    [Header("Again Button")]
     private GameObject btnAgain;
+
+    static public int scoreAtStartofRound;
     
 
     void Start () {
+
+        scoreAtStartofRound = EnemyShip.score;
 
         // Bonus points text for end of each level
         txtBonusPoints.text = "";

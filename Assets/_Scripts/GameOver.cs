@@ -25,7 +25,7 @@ public class GameOver : MonoBehaviour
 
     void startGameOnClick()
     {
-        SceneManager.LoadScene("Level_1");
+        SceneManager.LoadScene("Level_"+SpawnEnemies.sceneSequence);
     }
 
     void quitGameOnClick()

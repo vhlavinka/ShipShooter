@@ -22,6 +22,11 @@ public class NextLevelButton : MonoBehaviour {
             m_NextButton.interactable = false;
         }
 
+        if(SpawnEnemies.sceneSequence == 4)
+        {
+            m_NextButton.interactable = false;
+        }
+
         Button nextBtn = m_NextButton.GetComponent<Button>();
 
         nextBtn.onClick.AddListener(nextSceneOnClick);

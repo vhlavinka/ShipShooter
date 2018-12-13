@@ -155,12 +155,14 @@ public class Player : MonoBehaviour {
         else
         {
             playerDied = true;
+            
             Invoke("LoadGameOver", 2f);
         }
     }
 
     void LoadGameOver()
     {
+        EnemyShip.score = SpawnEnemies.scoreAtStartofRound; // revert score
         SceneManager.LoadScene("GameOver");
     }
 }
