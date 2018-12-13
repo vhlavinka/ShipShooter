@@ -26,6 +26,6 @@ public class TutorialButtons : MonoBehaviour {
 
     void replayGameOnClick()
     {
-        Application.Quit();
+        SceneManager.LoadScene("Tutorial");
     }
 }

@@ -21,7 +21,7 @@ public class EnemyShip : MonoBehaviour {
     public float flyInTime = 3.0f; // Speed the ship will fly in at
     public float speed = 10f;
     public float chanceToChangeDirections = 0.01f;
-    public float leftRightEdge = 80f;
+    public float leftRightEdge = 70f;
     public float upDownEdge = 20f;
     public float rotateSpeed = 0.5f;
     public float rotateSpeedGrunt = 0.25f;
@@ -164,6 +164,7 @@ public class EnemyShip : MonoBehaviour {
                 }
                 break;
             case ShipType.Grunt:
+                // enable laser
                 foreach (Transform child in transform)
                     child.gameObject.SetActive(true);
                 break;
@@ -190,6 +191,7 @@ public class EnemyShip : MonoBehaviour {
                 RotateToPlayer(gameObject, psPos);
                 break;
             case ShipType.Grunt:
+                // they will spin will firing a continuous laser
                 transform.Rotate(new Vector3(0, rotateSpeedGrunt, 0));
                 break;
             default:

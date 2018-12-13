@@ -19,7 +19,7 @@ public class SpawnEnemies : MonoBehaviour {
     public Text tipText;
     public Image tipWindow;
 
-    // Time to spawn between ships, changes depending on last ship called
+    [Header("Used in SpawnShip(), testing only")] 
     private float spawnTime = 10f;
     private ShipType lastCalled;
 
@@ -37,6 +37,11 @@ public class SpawnEnemies : MonoBehaviour {
     [Header("Current Scene")]
     private int sceneSequence;
 
+    [Header("Use GameObject.Find on these")]
+    private GameObject btnAgain;
+    private GameObject txtBonusPoints_GO;
+    private Text txtBonusPoints;
+
     void Start () {
         // Get current scene
         Scene scene = SceneManager.GetActiveScene();
@@ -44,35 +49,52 @@ public class SpawnEnemies : MonoBehaviour {
         {
             // Welcome Player
             tipSequence = 0;
-            tipText.text = "Welcome to ship shooter!\n This tutorial will teach you the basics.";
+            tipText.text = "Welcome to ship shooter!";
             Invoke("TipTextUpdate", tipTime);
 
-            // set scene to #0
+            // Set scene to #0
             sceneSequence = 0;
 
-            // begin tutorial
+            // Begin tutorial
             Invoke("Tutorial", 5f);
+            btnAgain = GameObject.Find("Again"); // Restart button for tutorial
+            btnAgain.SetActive(false);
+
+            // Bonus points text for end of each level
+            txtBonusPoints_GO = GameObject.Find("BonusPointsText"); 
+            txtBonusPoints = txtBonusPoints_GO.GetComponent<Text>();
+            txtBonusPoints_GO.SetActive(false);
         }
-        else if (scene.name == "LevelOne")
+        else if (scene.name == "Level_1")
         {
-            // set scene to #1
+            // Set scene to #1
             sceneSequence = 1;
 
-            // begin level
+            // Begin level
             Invoke("LevelOneTest", 5f); 
         }
-        
-        // track time
+        else if (scene.name == "Level_2")
+        {
+            // Set scene to #1
+            sceneSequence = 2;
+
+            // Begin level
+            Invoke("LevelTwo", 5f);
+        }
+
+        // Track time
         gameStartTime = Time.time;
 
         if(sceneSequence!=0)
-            Invoke("SpawnHealthCloud", 10f); // begin to spawn health clouds
+            Invoke("SpawnHealthCloud", 10f); // begin to spawn health clouds (health packs)
     }
 	
 	void Update () {
+        // Begin to check for win after final wave
         if (beginChecking) CheckForWin();
     }
 
+    // ================== SpawnShip() for TESTING ONLY =================== //
     void SpawnShip()
     {
         // Create new ship GO
@@ -131,7 +153,8 @@ public class SpawnEnemies : MonoBehaviour {
 
         Invoke("SpawnShip", spawnTime);
     }
-    
+
+    // Health clouds will randomly spawn
     void SpawnHealthCloud()
     {
         randHealthCloud = Random.value;
@@ -151,13 +174,15 @@ public class SpawnEnemies : MonoBehaviour {
         Invoke("SpawnHealthCloud", Random.value*60);
     }
 
+    // For the tutorial
     void Tutorial()
     {
+        // track which sequence of events we are on
         sequence++;
 
+        // update the tip text box
         Invoke("TipTextUpdate", tipTime);
         
-
         // Create new ship GO
         GameObject spShip;
 
@@ -177,47 +202,37 @@ public class SpawnEnemies : MonoBehaviour {
 
         int countSeeker = 0; // number of seekers per wave
         int countFP = 0;    // number of four point ships per wave
+        int countGrunt = 0;
         switch (sequence)
         {
             case 1:
-                print("Wave 1");
-                for (int i = 3; i >= countSeeker; countSeeker++)
+                for (int i = 2; i > countSeeker; countSeeker++)
                 {
                     spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
-                    countSeeker++;
                 }
                 Invoke("Tutorial", 10f);
                 break;
             case 2:
-                print("Wave 2");
-                for (int i = 1; i >= countFP; countFP++)
+                for (int i = 1; i > countFP; countFP++)
                 {
                     spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
-                    countFP++;
                 }
                 Invoke("Tutorial", 15f);
                 break;
             case 3:
-                print("Wave 3");
-                for (int i = 1; i >= countSeeker; countSeeker++)
+                for (int i = 4; i > countGrunt; countGrunt++)
                 {
-                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
-                    countFP++;
+                    spShip = Instantiate(gruntShip, new Vector3(-30, -2, 85), Quaternion.identity);
+
+                    spShip = Instantiate(gruntShip, new Vector3(30, -2, 85), Quaternion.identity);
+
+                    spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
+
                 }
-                Invoke("Tutorial", 12f);
+                Invoke("Tutorial", 8f);
                 Invoke("SpawnHealthCloud", 6f);
                 break;
             case 4:
-                print("Wave 4");
-                Invoke("SpawnHealthCloud", 1f);
-                for (int i = 2; i >= countFP; countFP++)
-                {
-                    spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
-                    countFP++;
-                }
-                Invoke("Tutorial", 7f);
-                break;
-            case 5:
                 CheckForWin();
                 break;
             default:
@@ -225,6 +240,7 @@ public class SpawnEnemies : MonoBehaviour {
         }
     }
 
+    // First Level
     void LevelOneTest()
     {
         sequence++;
@@ -253,7 +269,6 @@ public class SpawnEnemies : MonoBehaviour {
         switch (sequence)
         {
             case 1:
-                print("Wave 1");
                 TipTextUpdate();
                 for (int i = 4; i > countSeeker; countSeeker++)
                 {
@@ -264,7 +279,6 @@ public class SpawnEnemies : MonoBehaviour {
                 Invoke("LevelOneTest", 10f);
                 break;
             case 2:
-                print("Wave 2");
                 TipTextUpdate();
                 for (int i = 1; i > countFP; countFP++)
                 {
@@ -273,7 +287,6 @@ public class SpawnEnemies : MonoBehaviour {
                 Invoke("LevelOneTest", 15f);
                 break;
             case 3:
-                print("Wave 3");
                 TipTextUpdate();
                 for (int i = 1; i > countFP; countFP++)
                 {
@@ -286,7 +299,6 @@ public class SpawnEnemies : MonoBehaviour {
                 Invoke("LevelOneTest", 20f);
                 break;
             case 4:
-                print("Wave 4");
                 TipTextUpdate();
                 for (int i = 2; i > countFP; countFP++)
                 {
@@ -295,7 +307,6 @@ public class SpawnEnemies : MonoBehaviour {
                 Invoke("LevelOneTest", 20f);
                 break;
             case 5:
-                print("Wave 5");
                 TipTextUpdate();
                 for (int i = 1; i > countFP; countFP++)
                 {
@@ -311,7 +322,7 @@ public class SpawnEnemies : MonoBehaviour {
                 TipTextUpdate(); // Update wave count UI
 
                 int shiftX = 0;
-                for (int i = 3; i > countGrunt; countGrunt++)
+                for (int i = 2; i > countGrunt; countGrunt++)
                 {
                     if (countGrunt == 0)
                         shiftX = 15;
@@ -341,6 +352,131 @@ public class SpawnEnemies : MonoBehaviour {
         }
     }
 
+    // Second Level
+    void LevelTwo()
+    {
+        sequence++;
+
+        // Create new ship GO
+        GameObject spShip;
+
+        // Chose a random fly in point
+        float randFlyInPoint = Random.value; // choose random x value for fly in point
+        float leftOrRight = Random.value; // 50% change it will be negative or positive of x-axis
+        Vector3 flyInPointV; // this vector holds the point for the ship to lerp to
+
+        if (leftOrRight > .50f)
+        {
+            flyInPointV = new Vector3(randFlyInPoint * 50, -2, 85);
+        }
+        else
+        {
+            flyInPointV = new Vector3(randFlyInPoint * 50, -2, 85);
+        }
+
+        int countSeeker = 0; // number of seekers per wave
+        int countFP = 0;    // number of four point ships per wave
+        int countGrunt = 0;    // number of four point ships per wave
+
+        switch (sequence)
+        {
+            case 1:
+                TipTextUpdate();
+                
+                // 2 FP
+                for (int i = 2; i > countFP; countFP++)
+                {
+                    spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                }
+
+                Invoke("LevelTwo", 20f);
+                break;
+            case 2:
+                TipTextUpdate();
+
+                // 1 grunt
+                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
+
+                // 1 FP
+                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+
+                Invoke("LevelTwo", 15f);
+                break;
+            case 3:
+                TipTextUpdate();
+
+                // 6 seekers
+                for (int i = 6; i > countSeeker; countSeeker++)
+                {
+                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                }
+
+                Invoke("LevelTwo", 20f);
+                break;
+            case 4:
+                TipTextUpdate();
+
+                // 2 grunts
+                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
+                spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
+
+                // 3 seekers
+                for (int i = 3; i > countSeeker; countSeeker++)
+                {
+                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                }
+
+                Invoke("LevelTwo", 15f);
+                break;
+            case 5:
+                TipTextUpdate();
+
+                // 2 grunts
+                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
+                spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
+
+                // 1 FP
+                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+
+                Invoke("LevelTwo", 20f);
+                break;
+            case 6:
+                TipTextUpdate(); 
+                
+                int shiftX = 0;
+
+                if (countGrunt == 0)
+                    shiftX = 15;
+                else if (countGrunt == 1)
+                    shiftX = 30;
+                else if (countGrunt == 2)
+                    shiftX = 45;
+                else
+                    shiftX = 60;
+
+                // 4 grunts
+                spShip = Instantiate(gruntShip, new Vector3(-shiftX, -2, 85), Quaternion.identity);
+
+                spShip = Instantiate(gruntShip, new Vector3(shiftX, -2, 85), Quaternion.identity);
+
+                spShip = Instantiate(gruntShip, new Vector3(-shiftX, -2, -85), Quaternion.identity);
+
+                spShip = Instantiate(gruntShip, new Vector3(shiftX, -2, -85), Quaternion.identity);
+
+                // 1 FP
+                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+
+                Invoke("LevelTwo", 15f);
+                break;
+            case 7:
+                CheckForWin();
+                break;
+            default:
+                break;
+        }
+    }
+
+    // Generate random fly in points of enemy ships
     public Vector3 flyInPoint()
     {
         // Chose a random fly in point
@@ -380,20 +516,30 @@ public class SpawnEnemies : MonoBehaviour {
         return flyInPointV;
     }
 
+    // Checks if player has won round so they can move on to next level
     public void CheckForWin()
     {
         beginChecking = true; // Sets to true once called from case 7
 
-        GameObject btn = GameObject.Find("Again");
-        if(btn != null) btn.SetActive(true);
-
-        if (GameObject.Find("Seeker(Clone)") ==  null && GameObject.Find("FourPointShip(Clone)") == null)
+        if (GameObject.Find("Seeker(Clone)") ==  null 
+            && GameObject.Find("FourPointShip(Clone)") == null 
+            && GameObject.Find("Grunt(Clone)") == null)
         {
             RoundWin.enabled = true;
-            print("round complete");
+            EnemyShip.score += Player.bonusScore; // add bonus points
+            Invoke("NextRound", 3);
+
+            if (btnAgain != null) btnAgain.SetActive(true); // tutorial only
+
+            if (txtBonusPoints != null) // levels only
+            {
+                txtBonusPoints_GO.SetActive(true);
+                txtBonusPoints.text = Player.bonusScore.ToString();
+            }
         }
     }
 
+    // Updates the text box in tutorial and throughout levels for wave count
     public void TipTextUpdate()
     {
         if(sceneSequence == 0)
@@ -407,27 +553,27 @@ public class SpawnEnemies : MonoBehaviour {
                     tipTime = 5f;
                     break;
                 case 2:
-                    tipText.text = "These are seeker ships.\n" +
-                        "You can destroy their lasers with your own.";
+                    tipText.text = "Press the left mouse button down to attack.";
                     tipTime = 6f;
                     Invoke("TipTextUpdate", tipTime);
                     break;
                 case 3:
-                    tipText.text = "Press the left mouse button down to attack.";
+                    tipText.text = "This is a stronger ship.\n" +
+                        "You cannot destroy it's attacks, so get ready to dodge!";
                     tipTime = 3f;
                     break;
                 case 4:
-                    tipText.text = "This is a stronger ship.\n"+
-                        "You cannot destroy it's attacks, so get ready to dodge!";
+                    tipText.text = "Press SPACEBAR to to gain a force field which makes you invincible and move faster.";
                     break;
                 case 5:
-                    tipText.text = "Press SPACEBAR to to become invincible and move faster for a short period of time.";
+                    tipText.text = "SPACEBAR is especially helpful against these lasers!";
                     break;
                 case 6:
-                    tipText.text = "If you take damage, be sure to pick up a health pack to recover!";
+                    tipText.text = "Pick up a health pack to regain HP.";
+                    Invoke("TipTextUpdate", 4f);
                     break;
                 case 7:
-                    tipText.text = "That's all there is to it!";
+                    tipText.text = "There's the basics. Press RESTART to do this tutorial again or go BACK to the Main Menu.";
                     break;
                 default:
                     break;
@@ -439,5 +585,15 @@ public class SpawnEnemies : MonoBehaviour {
             tipSequence++;
             tipText.text = "WAVE: " + tipSequence;
         }
+    }
+
+    // Move on to next round
+    void NextRound()
+    {
+        if(sceneSequence == 2)
+            SceneManager.LoadScene("GameOver");
+        else
+            SceneManager.LoadScene("Level_"+ (sceneSequence+1).ToString());
+   
     }
 }

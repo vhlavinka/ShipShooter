@@ -8,16 +8,18 @@ using UnityEngine;
 
 public class EnemyShoot : MonoBehaviour
 {
+    [Header("Enemy Ship components")]
     public GameObject firePoint;
     public List<GameObject> vfx = new List<GameObject>();
     public EnemyShip enemyShip;
-    public Player playerShip;
-
+    
+    [Header("Ignore this layer")]
     public static int layerMask;
 
     private GameObject effectToSpawn;
     private float timeToFire = 0;
     private LineRenderer lr;
+    private Player playerShip;
 
 
     void Start()
@@ -28,6 +30,8 @@ public class EnemyShoot : MonoBehaviour
             lr = GetComponent<LineRenderer>();
         else
             effectToSpawn = vfx[0];
+
+        playerShip = GameObject.Find("Ship").GetComponent<Player>();       
     }
 
     void Update()
@@ -37,17 +41,17 @@ public class EnemyShoot : MonoBehaviour
             case ShipType.Grunt:
                 lr.SetPosition(0, transform.position);
                 RaycastHit hit;
-
+                print(playerShip.playerHealth);
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
                 {
-                    if (hit.collider)
+                    if (hit.collider && !playerShip.forceField.activeSelf)
                     {
+                        // prevent the ray front extending past collider
                         lr.SetPosition(1, hit.point);
                         
                         // update playerHealth
                         playerShip.playerHealth -= 0.33f;
                         playerShip.updateHealthBar();
-                        print(playerShip.playerHealth);
                     }
                 }
                 else
@@ -66,8 +70,7 @@ public class EnemyShoot : MonoBehaviour
                 break;
             default:
                 break;
-        }
-        
+        }    
     }
 
     void SpawnVFX()
@@ -87,7 +90,6 @@ public class EnemyShoot : MonoBehaviour
                 {
                     vfx.transform.localRotation = transform.localRotation;
                 }
-              
             }
         }
         else

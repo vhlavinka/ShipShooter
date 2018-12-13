@@ -9,7 +9,8 @@ public class Player : MonoBehaviour {
 
     [Header("Player Stats")]
     public float speed = 30f; // speed of ship movement
-    public GameObject healthBar;
+    public GameObject healthBar; // UI for player health
+    static public int bonusScore; // bonus for not taking damage
 
     [Header("Utilities")]
     public GameObject forceField;  // absorbs enemy projectiles when activated
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour {
 
     void Start()
     {
+        bonusScore = 1000;
         // set audio source
         source = GetComponent<AudioSource>();
     }
@@ -98,40 +100,46 @@ public class Player : MonoBehaviour {
         return rotation;
     }
 
-    // if passed through health cloud, add hp back
+    // if passed through health pack, add hp back
     void OnTriggerEnter(Collider collision)
-    {
-        Debug.Log("Before: " + playerHealth);
-        
-        if (collision.name == "HealthCloud(Clone)" && playerHealth < 100)
+    {      
+        if (collision.name == "HealthCloud(Clone)" && playerHealth < 100) // was originally a cloud, now it's a "pack"
         {
+            // play the gain health sound
             source.PlayOneShot(gainHealthSound, 1.0f);
-            playerHealth += 10;
-            Destroy(collision.gameObject);
-            Debug.Log("After: " + playerHealth);
 
+            // destroy health pack
+            Destroy(collision.gameObject);
+
+            // don't overheal past maximum health
+            if (playerHealth > 90 && playerHealth < 100)
+                playerHealth += (100 - playerHealth);
+            else
+                playerHealth += 10;
+
+            // update health bar to reflect changes
             updateHealthBar();
         }
     }
 
     // take hp away when hit with enemy projectiles
     void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log(collision);
-        
+    {      
         // update player health
         if (!forceField.activeInHierarchy)
         {
+            // sound of player being hit
             source.PlayOneShot(playerHitSound, 1.0f);
-           
+
+            // prevent from subtracting 10 health if player health is already < 10
             if (playerHealth < 10 && playerHealth > 0)
-                playerHealth -= playerHealth;   // prevent from subtracting 10 health if player health is already < 10
+                playerHealth -= playerHealth;
             else
                 playerHealth -= 10;
+
+            bonusScore -= 100;
         }
-
         updateHealthBar();
-
     }
 
     // update the health bar, also used in EnemyShoot for grunt laser

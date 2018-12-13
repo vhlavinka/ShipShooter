@@ -18,7 +18,7 @@ public class StartScreen : MonoBehaviour
 
     void startGameOnClick()
     {
-        SceneManager.LoadScene("LevelOne");
+        SceneManager.LoadScene("Level_1");
     }
     void howToPlayOnClick()
     {
