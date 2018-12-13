@@ -588,7 +588,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 100, y: -80}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1080258396
 MonoBehaviour:
@@ -757,7 +757,6 @@ MonoBehaviour:
   m_StartButton: {fileID: 1550885948}
   m_QuitButton: {fileID: 1080258396}
   m_score: {fileID: 0}
-  m_BeatHighScore: {fileID: 0}
 --- !u!1 &1190772630
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,7 +1042,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -100, y: -80}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1550885948
 MonoBehaviour:

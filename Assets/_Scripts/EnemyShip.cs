@@ -21,7 +21,7 @@ public class EnemyShip : MonoBehaviour {
     public float flyInTime = 3.0f; // Speed the ship will fly in at
     public float speed = 10f;
     public float chanceToChangeDirections = 0.01f;
-    public float leftRightEdge = 70f;
+    public float leftRightEdge = 60f;
     public float upDownEdge = 20f;
     public float rotateSpeed = 0.5f;
     public float rotateSpeedGrunt = 0.25f;
@@ -31,9 +31,7 @@ public class EnemyShip : MonoBehaviour {
 
     [Header("Private")]
     private Vector3 startPos;
-    private Vector3 endPos;
     private float startTime; // Start time from when ship is spawned
-    private float timeCounter;
     private bool startMoving = false;
     private Quaternion rotation; // track rotation of ship
 
@@ -62,13 +60,12 @@ public class EnemyShip : MonoBehaviour {
         }
     }
 
-    private void Start()
+    void Start()
     {
-        timeCounter = 0;
+        
     }
 
     void Update () {
-        timeCounter = Time.deltaTime;
 
         if (Time.time < 6f + startTime)
         {
@@ -92,7 +89,6 @@ public class EnemyShip : MonoBehaviour {
                 transform.position = Vector3.Lerp(startPos,
                     new Vector3(startPos.x, startPos.y, -20), fracComplete);
 
-            endPos = transform.position;
         }
         else
         {

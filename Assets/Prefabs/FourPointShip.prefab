@@ -586,11 +586,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flyInTime: 3
-  speed: 10
+  speed: 5
   chanceToChangeDirections: 0.01
-  leftRightEdge: 90
+  leftRightEdge: 60
   upDownEdge: 20
   rotateSpeed: 0.5
+  rotateSpeedGrunt: 0.25
   type: 0
 --- !u!135 &135840263494237640
 SphereCollider:

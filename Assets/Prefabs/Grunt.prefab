@@ -220,7 +220,7 @@ MonoBehaviour:
   flyInTime: 3
   speed: 10
   chanceToChangeDirections: 0.01
-  leftRightEdge: 80
+  leftRightEdge: 70
   upDownEdge: 20
   rotateSpeed: 0.5
   rotateSpeedGrunt: 1
