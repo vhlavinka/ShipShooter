@@ -14,8 +14,7 @@
  button
  
  ----- LEVELS -----
- There are four levels total.
- I recommend using the skip level button to see the last. There is some cool
+ - There are four levels total. I recommend using the skip level button to see the last. There is some cool
  choreography with the grunt ships there.
  
  
