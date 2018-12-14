@@ -1,5 +1,5 @@
 ----- WEBGL -----
-http://taz.cs.wcupa.edu/~vh881262/ShipShooterWebGL/
+- http://taz.cs.wcupa.edu/~vh881262/ShipShooterWebGL/
 
 ----- HOW TO PLAY -----
 - Movement: WASD
