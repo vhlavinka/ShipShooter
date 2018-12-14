@@ -46,7 +46,7 @@ public class SpawnEnemies : MonoBehaviour {
         scoreAtStartofRound = EnemyShip.score;
 
         // Bonus points text for end of each level
-        txtBonusPoints.text = "";
+        if (txtBonusPoints != null) txtBonusPoints.text = "";
 
         txtRoundWin.enabled = false;
 
@@ -866,7 +866,7 @@ public class SpawnEnemies : MonoBehaviour {
     {
         if(sceneSequence == 4)
             SceneManager.LoadScene("GameOver");
-        else
+        else if (sceneSequence != 0)
             SceneManager.LoadScene("Level_"+ (sceneSequence+1).ToString());
    
     }

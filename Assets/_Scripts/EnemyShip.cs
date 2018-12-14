@@ -43,18 +43,30 @@ public class EnemyShip : MonoBehaviour {
 
         if (type == ShipType.FourPoint)
         {
-            Health = 150;
+            if (StartScreen.easyDifficulty)
+                Health = 75;
+            else
+                Health = 150;
+
             Invoke("ShipMovement", 4);
 
         }
         else if(type == ShipType.Seeker)
         {
-            Health = 40;
+            if (StartScreen.easyDifficulty)
+                Health = 20;
+            else
+                Health = 40;
+
             Invoke("ShipMovement", 4);
         }
         else if (type == ShipType.Grunt)
         {
-            Health = 20;
+            if (StartScreen.easyDifficulty)
+                Health = 15;
+            else
+                Health = 20;
+
             RandVector();
             Invoke("ShipMovement", 4);
         }

@@ -111,11 +111,23 @@ public class Player : MonoBehaviour {
             // destroy health pack
             Destroy(collision.gameObject);
 
-            // don't overheal past maximum health
-            if (playerHealth > 90 && playerHealth < 100)
-                playerHealth += (100 - playerHealth);
+            if (StartScreen.easyDifficulty)
+            {
+                // don't overheal past maximum health
+                if (playerHealth > 80 && playerHealth < 100)
+                    playerHealth += (100 - playerHealth);
+                else
+                    playerHealth += 20;
+            }
             else
-                playerHealth += 10;
+            {
+                // don't overheal past maximum health
+                if (playerHealth > 90 && playerHealth < 100)
+                    playerHealth += (100 - playerHealth);
+                else
+                    playerHealth += 10;
+            }
+
 
             // update health bar to reflect changes
             updateHealthBar();
@@ -131,13 +143,24 @@ public class Player : MonoBehaviour {
             // sound of player being hit
             source.PlayOneShot(playerHitSound, 1.0f);
 
-            // prevent from subtracting 10 health if player health is already < 10
-            if (playerHealth < 10 && playerHealth > 0)
-                playerHealth -= playerHealth;
+            if (StartScreen.easyDifficulty)
+            {
+                // prevent from subtracting 10 health if player health is already < 10
+                if (playerHealth < 5 && playerHealth > 0)
+                    playerHealth -= playerHealth;
+                else
+                    playerHealth -= 5;
+            }
             else
-                playerHealth -= 10;
+            {
+                // prevent from subtracting 10 health if player health is already < 10
+                if (playerHealth < 10 && playerHealth > 0)
+                    playerHealth -= playerHealth;
+                else
+                    playerHealth -= 10;
+            }
 
-            bonusScore -= 100;
+            if (bonusScore != 0) bonusScore -= 100;
         }
         updateHealthBar();
     }
