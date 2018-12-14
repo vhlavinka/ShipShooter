@@ -30,6 +30,7 @@ public class GameOver : MonoBehaviour
 
     void quitGameOnClick()
     {
+        EnemyShip.score = 0;
         SceneManager.LoadScene("MainMenu");
     }
 }

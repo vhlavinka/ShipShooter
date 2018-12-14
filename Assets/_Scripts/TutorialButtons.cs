@@ -21,7 +21,8 @@ public class TutorialButtons : MonoBehaviour {
 
     void startGameOnClick()
     {
-        SceneManager.LoadScene("MainMenu");
+        EnemyShip.score = 0;
+        SceneManager.LoadScene("MainMenu");    
     }
 
     void replayGameOnClick()
