@@ -29,6 +29,9 @@ public class EnemyShip : MonoBehaviour {
     [Header("Type of Ship")]
     public ShipType type;  // Holds the type of ship 
 
+    [Header("Floating Text")]
+    public GameObject floatingTextParent;
+
     [Header("Private")]
     private Vector3 startPos;
     private float startTime; // Start time from when ship is spawned
@@ -127,6 +130,9 @@ public class EnemyShip : MonoBehaviour {
         if(collision.gameObject.name == "PlayerProjectile(Clone)")
         {
             Health -= 1;    // Projectile damage
+            GameObject floatingText = Instantiate(floatingTextParent);
+            floatingText.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+            floatingText.transform.position = Camera.main.WorldToScreenPoint(collision.transform.position);
         }
     }
 

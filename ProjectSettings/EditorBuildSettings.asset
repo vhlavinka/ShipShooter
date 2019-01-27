@@ -14,19 +14,28 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level_1.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
-    path: Assets/Scenes/Level_2.unity
+  - enabled: 0
+    path: Assets/Scenes/Old Scenes/Level_2_old.unity
     guid: b1895736a5da1544fa7b0320013153e0
-  - enabled: 1
-    path: Assets/Scenes/Level_3.unity
+  - enabled: 0
+    path: Assets/Scenes/Old Scenes/Level_3_old.unity
     guid: b00b4f7c587c6b3429a128f3979d7733
-  - enabled: 1
-    path: Assets/Scenes/Level_4.unity
+  - enabled: 0
+    path: Assets/Scenes/Old Scenes/Level_4_old.unity
     guid: 7328fca657d79e343bf1298fcea7d7ae
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 31ff058512d5f91449cbaccb2713ae7b
   - enabled: 0
-    path: Assets/__DELETED_GUID_Trash/e955015b38f71574e8a58ecc6d585518
-    guid: e955015b38f71574e8a58ecc6d585518
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Level_2.unity
+    guid: 00578e22b2cd7f54d85e82c1d0eb27f4
+  - enabled: 1
+    path: Assets/Scenes/Level_3.unity
+    guid: 67fb8ab60a24d6b49bbc7d5ba1f68d6c
+  - enabled: 1
+    path: Assets/Scenes/Level_4.unity
+    guid: 1497a512f6db8a9429109be2007d1a52
   m_configObjects: {}

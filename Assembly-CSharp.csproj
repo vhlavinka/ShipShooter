@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\_Scripts\EnemyShip.cs" />
     <Compile Include="Assets\_Scripts\EnemyShoot.cs" />
+    <Compile Include="Assets\_Scripts\FloatingText.cs" />
     <Compile Include="Assets\_Scripts\GameOver.cs" />
     <Compile Include="Assets\_Scripts\NextLevelButton.cs" />
     <Compile Include="Assets\_Scripts\Player.cs" />

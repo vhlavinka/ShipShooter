@@ -39,6 +39,11 @@ public class SpawnEnemies : MonoBehaviour {
     private GameObject btnAgain;
 
     static public int scoreAtStartofRound;
+
+    private float addBonus = 0;
+    private float endOfRoundTimer = 0;
+    private int endOfRoundBonus = 0;
+    private int endOfRoundPlayerScore = 0;
     
 
     void Start () {
@@ -110,6 +115,29 @@ public class SpawnEnemies : MonoBehaviour {
 	void Update () {
         // Begin to check for win after final wave
         if (beginChecking) CheckForWin();
+
+    }
+
+    void FixedUpdate()
+    {
+        if (txtRoundWin.enabled)
+        {
+            endOfRoundTimer += Time.deltaTime;        
+
+            if (endOfRoundTimer >= 3f)
+            {
+                EnemyShip.score = endOfRoundPlayerScore + endOfRoundBonus;
+                txtBonusPoints.text = "Bonus Points : 0";
+            }
+            else if (endOfRoundTimer >= 1f)
+            {
+                // Give the illusion of the score being added incrementally
+                addBonus = Player.bonusScore / 180; // Next round is invoked in 3 secs
+                EnemyShip.score += (int)System.Math.Floor(addBonus); // add bonus points
+                Player.bonusScore -= (int)System.Math.Floor(addBonus);
+                txtBonusPoints.text = "Bonus Points: " + Player.bonusScore.ToString();
+            }
+        }
     }
 
     // ================== SpawnShip() for TESTING ONLY =================== //
@@ -268,6 +296,7 @@ public class SpawnEnemies : MonoBehaviour {
                 for (int i = 1; i > countFP; countFP++)
                 {
                     spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                    print("Four point created");
                 }
                 Invoke("LevelOne", 15f);
                 break;
@@ -799,10 +828,13 @@ public class SpawnEnemies : MonoBehaviour {
             && GameObject.Find("FourPointShip(Clone)") == null 
             && GameObject.Find("Grunt(Clone)") == null)
         {
-            txtRoundWin.enabled = true; 
+            print("End of round");
+            txtRoundWin.enabled = true;
+            endOfRoundBonus = Player.bonusScore;
+            endOfRoundPlayerScore = EnemyShip.score;
             beginChecking = false;  // stop calling CheckForWin() in Update
-            EnemyShip.score += Player.bonusScore; // add bonus points
-            Invoke("NextRound", 3);
+            //EnemyShip.score += Player.bonusScore; // add bonus points
+            Invoke("NextRound", 5f);
 
             if (btnAgain != null) btnAgain.SetActive(true); // tutorial only
 
@@ -864,7 +896,8 @@ public class SpawnEnemies : MonoBehaviour {
     // Move on to next round
     void NextRound()
     {
-        if(sceneSequence == 4)
+        txtBonusPoints.enabled = false;
+        if (sceneSequence == 4)
             SceneManager.LoadScene("GameOver");
         else if (sceneSequence != 0)
             SceneManager.LoadScene("Level_"+ (sceneSequence+1).ToString());

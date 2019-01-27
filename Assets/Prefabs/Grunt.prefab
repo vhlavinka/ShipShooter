@@ -225,6 +225,8 @@ MonoBehaviour:
   rotateSpeed: 0.5
   rotateSpeedGrunt: 1
   type: 2
+  floatingTextParent: {fileID: 1482889140138612, guid: 8ad0e827760e4894bb8c75f31198e634,
+    type: 2}
 --- !u!120 &120957639594683742
 LineRenderer:
   m_ObjectHideFlags: 1

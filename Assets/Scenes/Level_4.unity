@@ -33,12 +33,12 @@ RenderSettings:
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 0
-  m_DefaultReflectionResolution: 1024
+  m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08779485, g: 0.07844224, b: 0.16186929, a: 1}
+  m_IndirectSpecularColor: {r: 0.11017311, g: 0.095783584, b: 0.19257542, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 102031297}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -727,6 +727,7 @@ GameObject:
   - component: {fileID: 487657547}
   - component: {fileID: 487657549}
   - component: {fileID: 487657548}
+  - component: {fileID: 487657550}
   m_Layer: 5
   m_Name: BonusPointsText
   m_TagString: Untagged
@@ -792,6 +793,24 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 487657546}
   m_CullTransparentMesh: 0
+--- !u!95 &487657550
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487657546}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e3ee1f32569eb564b8d3395ebac04351, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -1463,7 +1482,48 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1302942096560530, guid: e62846ef49ba3a44bb219a6f3adb76da,
     type: 2}
   m_PrefabInternal: {fileID: 2137113497}
---- !u!1001 &1387722322
+--- !u!1 &1554847101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1554847103}
+  - component: {fileID: 1554847102}
+  m_Layer: 0
+  m_Name: RotateSky
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1554847102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1554847101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792e06048355aa146a84c8b586549597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.4
+--- !u!4 &1554847103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1554847101}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.1895804, y: -10.692385, z: 12.433023}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1622206738
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1511,7 +1571,7 @@ Prefab:
         type: 2}
       propertyPath: forceField
       value: 
-      objectReference: {fileID: 1387722323}
+      objectReference: {fileID: 1622206739}
     - target: {fileID: 114412062511739414, guid: 31a43499b5d573c49b4bfaa4c35fd146,
         type: 2}
       propertyPath: scoreText
@@ -1520,52 +1580,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31a43499b5d573c49b4bfaa4c35fd146, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1387722323 stripped
+--- !u!1 &1622206739 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1381734187110044, guid: 31a43499b5d573c49b4bfaa4c35fd146,
     type: 2}
-  m_PrefabInternal: {fileID: 1387722322}
---- !u!1 &1554847101
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1554847103}
-  - component: {fileID: 1554847102}
-  m_Layer: 0
-  m_Name: RotateSky
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1554847102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1554847101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 792e06048355aa146a84c8b586549597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.4
---- !u!4 &1554847103
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1554847101}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.1895804, y: -10.692385, z: 12.433023}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_PrefabInternal: {fileID: 1622206738}
 --- !u!1 &1665428047
 GameObject:
   m_ObjectHideFlags: 0
