@@ -32,6 +32,9 @@ public class EnemyShip : MonoBehaviour {
     [Header("Floating Text")]
     public GameObject floatingTextParent;
 
+    [Header("Death Animation")]
+    public GameObject deathAnimation;
+
     [Header("Private")]
     private Vector3 startPos;
     private float startTime; // Start time from when ship is spawned
@@ -109,8 +112,10 @@ public class EnemyShip : MonoBehaviour {
         // Track the ship's health
         if (gameObject != null && Health < 0)
         {
+            if(deathAnimation != null)
+                Instantiate(deathAnimation, transform.position, Quaternion.identity);
             Destroy(gameObject);
-            score += 100;     
+            score += 100; 
         }
 
         // Controls how each ship behaves
