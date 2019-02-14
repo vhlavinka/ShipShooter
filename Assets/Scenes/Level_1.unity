@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.221015, g: 0.14316109, b: 0.24025089, a: 1}
+  m_IndirectSpecularColor: {r: 0.22098798, g: 0.14321768, b: 0.24027836, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -344,7 +344,7 @@ RectTransform:
   - {fileID: 487657547}
   - {fileID: 1687391453}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1010,7 +1010,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &642933152
 GameObject:
@@ -1192,7 +1192,7 @@ Transform:
   - {fileID: 1153579657}
   - {fileID: 1665428048}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1153579656
 GameObject:
@@ -1405,7 +1405,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1281256509
 GameObject:
@@ -1521,7 +1521,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1622206738
 Prefab:
@@ -1833,7 +1833,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4181481333610406, guid: 2a80f41fe9a3e324a9592d5f27a9927e, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114484890960052722, guid: 2a80f41fe9a3e324a9592d5f27a9927e,
         type: 2}
@@ -2049,7 +2049,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4530816017790144, guid: e62846ef49ba3a44bb219a6f3adb76da, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4286992339039524, guid: e62846ef49ba3a44bb219a6f3adb76da, type: 2}
       propertyPath: m_LocalScale.y

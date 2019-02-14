@@ -122,8 +122,12 @@ public class SpawnEnemies : MonoBehaviour {
     {
         if (txtRoundWin.enabled)
         {
-            endOfRoundTimer += Time.deltaTime;        
+            endOfRoundTimer += Time.deltaTime;
 
+            if (endOfRoundTimer >= 4f)
+            {
+                txtBonusPoints.enabled = false;
+            }
             if (endOfRoundTimer >= 3f)
             {
                 EnemyShip.score = endOfRoundPlayerScore + endOfRoundBonus;
@@ -216,43 +220,24 @@ public class SpawnEnemies : MonoBehaviour {
 
         // update the tip text box
         Invoke("TipTextUpdate", tipTime);
-        
-        // Create new ship GO
-        GameObject spShip;
 
-        // Chose a random fly in point
-        float randFlyInPoint = Random.value; // choose random x value for fly in point
-        float leftOrRight = Random.value; // 50% change it will be negative or positive of x-axis
-
-        int countSeeker = 0; // number of seekers per wave
-        int countFP = 0;    // number of four point ships per wave
-        int countGrunt = 0;
         switch (sequence)
         {
             case 1:
-                for (int i = 2; i > countSeeker; countSeeker++)
+                for (int i = 0; i < 2; i++)
                 {
-                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                    Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
                 }
                 Invoke("Tutorial", 10f);
                 break;
             case 2:
-                for (int i = 1; i > countFP; countFP++)
-                {
-                    spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
-                }
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
                 Invoke("Tutorial", 15f);
                 break;
             case 3:
-                for (int i = 4; i > countGrunt; countGrunt++)
-                {
-                    spShip = Instantiate(gruntShip, new Vector3(-30, -2, 85), Quaternion.identity);
-
-                    spShip = Instantiate(gruntShip, new Vector3(30, -2, 85), Quaternion.identity);
-
-                    spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
-
-                }
+                Instantiate(gruntShip, new Vector3(-30, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(30, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
                 Invoke("Tutorial", 8f);
                 Invoke("SpawnHealthCloud", 6f);
                 break;
@@ -267,92 +252,88 @@ public class SpawnEnemies : MonoBehaviour {
     // First Level
     void LevelOne()
     {
-        sequence++;
+        // increment the wave sequence each time this is called
+        sequence++; 
 
-        // Create new ship GO
-        GameObject spShip;
-
-        // Chose a random fly in point
-        float randFlyInPoint = Random.value; // choose random x value for fly in point
-        float leftOrRight = Random.value; // 50% change it will be negative or positive of x-axis
-
-        int countSeeker = 0; // number of seekers per wave
-        int countFP = 0;    // number of four point ships per wave
-        int countGrunt = 0;    // number of four point ships per wave
-
+        // waves: 6 total
         switch (sequence)
         {
             case 1:
-                TipTextUpdate();
-                for (int i = 4; i > countSeeker; countSeeker++)
-                {
-                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
-                }
+                TipTextUpdate(); // update the wave count
 
+                // 4 seeker ships
+                Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+
+                // call next wave in 10 seconds
                 Invoke("LevelOne", 10f);
                 break;
             case 2:
-                TipTextUpdate();
-                for (int i = 1; i > countFP; countFP++)
-                {
-                    spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
-                }
+                TipTextUpdate(); 
+            
+                // 1 four point ship
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+
+                // call the next wave in 15 seconds
                 Invoke("LevelOne", 15f);
                 break;
             case 3:
-                TipTextUpdate();
-                for (int i = 1; i > countFP; countFP++)
-                {
-                    spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
-                }
-                for (int i = 2; i > countSeeker; countSeeker++)
-                {
-                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
-                }
+                TipTextUpdate(); 
+
+                // 1 four point ship, 2 seeker ships
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+
+                // call the next wave in 20 seconds
                 Invoke("LevelOne", 20f);
                 break;
             case 4:
                 TipTextUpdate();
-                for (int i = 2; i > countFP; countFP++)
-                {
-                    spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
-                }
+
+                // 2 four point ships
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+
+                // call the next wave in 20 seconds
                 Invoke("LevelOne", 20f);
                 break;
             case 5:
                 TipTextUpdate();
-                for (int i = 1; i > countFP; countFP++)
-                {
-                    spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
-                }
-                for (int i = 2; i > countSeeker; countSeeker++)
-                {
-                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
-                }
+
+                // 1 four point ship, 2 seeker ships
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+
+                // call the next wave in 20 seconds
                 Invoke("LevelOne", 20f);
                 break;
             case 6:
-                TipTextUpdate(); // Update wave count UI
+                TipTextUpdate(); 
 
+                // 3 grunt ships in each corner
                 int shiftX = 0;
-                for (int i = 2; i > countGrunt; countGrunt++)
+                for (int i = 0; i < 3; i++)
                 {
-                    if (countGrunt == 0)
+                    if (i == 0)
                         shiftX = 15;
-                    else if (countGrunt == 1)
+                    else if (i == 1)
                         shiftX = 30;
-                    else if (countGrunt == 2)
+                    else if (i == 2)
                         shiftX = 45;
                     else 
                         shiftX = 60;
                       
-                    spShip = Instantiate(gruntShip, new Vector3(-shiftX, -2, 85), Quaternion.identity);
+                    Instantiate(gruntShip, new Vector3(-shiftX, -2, 85), Quaternion.identity);
 
-                    spShip = Instantiate(gruntShip, new Vector3(shiftX, -2, 85), Quaternion.identity);
+                    Instantiate(gruntShip, new Vector3(shiftX, -2, 85), Quaternion.identity);
 
-                    spShip = Instantiate(gruntShip, new Vector3(-shiftX, -2, -85), Quaternion.identity);
+                    Instantiate(gruntShip, new Vector3(-shiftX, -2, -85), Quaternion.identity);
 
-                    spShip = Instantiate(gruntShip, new Vector3(shiftX, -2, -85), Quaternion.identity);
+                    Instantiate(gruntShip, new Vector3(shiftX, -2, -85), Quaternion.identity);
                 }
 
                 Invoke("LevelOne", 15f);
@@ -368,40 +349,27 @@ public class SpawnEnemies : MonoBehaviour {
     // Second Level
     void LevelTwo()
     {
+        // increment the wave sequence each time this is called
         sequence++;
 
-        // Create new ship GO
-        GameObject spShip;
-
-        // Chose a random fly in point
-        float randFlyInPoint = Random.value; // choose random x value for fly in point
-        float leftOrRight = Random.value; // 50% change it will be negative or positive of x-axis
-
-        int countSeeker = 0; // number of seekers per wave
-        int countFP = 0;    // number of four point ships per wave
-        int countGrunt = 0;    // number of four point ships per wave
-
+        // waves: 6 total
         switch (sequence)
         {
             case 1:
                 TipTextUpdate();
-                
-                // 2 FP
-                for (int i = 2; i > countFP; countFP++)
-                {
-                    spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
-                }
+
+                // 2 four point ships
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
 
                 Invoke("LevelTwo", 20f);
                 break;
             case 2:
                 TipTextUpdate();
 
-                // 1 grunt
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
-
-                // 1 FP
-                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                // 1 grunt ship, 1 four point ship
+                Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
 
                 Invoke("LevelTwo", 15f);
                 break;
@@ -409,9 +377,9 @@ public class SpawnEnemies : MonoBehaviour {
                 TipTextUpdate();
 
                 // 6 seekers
-                for (int i = 6; i > countSeeker; countSeeker++)
+                for (int i = 0; i < 6; i++)
                 {
-                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                    Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
                 }
 
                 Invoke("LevelTwo", 20f);
@@ -420,13 +388,13 @@ public class SpawnEnemies : MonoBehaviour {
                 TipTextUpdate();
 
                 // 2 grunts
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
 
                 // 3 seekers
-                for (int i = 3; i > countSeeker; countSeeker++)
+                for (int i = 0; i < 3; i++)
                 {
-                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                    Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
                 }
 
                 Invoke("LevelTwo", 15f);
@@ -435,39 +403,25 @@ public class SpawnEnemies : MonoBehaviour {
                 TipTextUpdate();
 
                 // 2 grunts
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
 
                 // 1 FP
-                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
 
                 Invoke("LevelTwo", 20f);
                 break;
             case 6:
                 TipTextUpdate(); 
-                
-                int shiftX = 0;
-
-                if (countGrunt == 0)
-                    shiftX = 15;
-                else if (countGrunt == 1)
-                    shiftX = 30;
-                else if (countGrunt == 2)
-                    shiftX = 45;
-                else
-                    shiftX = 60;
 
                 // 4 grunts
-                spShip = Instantiate(gruntShip, new Vector3(-shiftX, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(-15, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(15, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(-15, -2, -85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(15, -2, -85), Quaternion.identity);
 
-                spShip = Instantiate(gruntShip, new Vector3(shiftX, -2, 85), Quaternion.identity);
-
-                spShip = Instantiate(gruntShip, new Vector3(-shiftX, -2, -85), Quaternion.identity);
-
-                spShip = Instantiate(gruntShip, new Vector3(shiftX, -2, -85), Quaternion.identity);
-
-                // 1 FP
-                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                // 1 four point
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
 
                 Invoke("LevelTwo", 15f);
                 break;
@@ -482,30 +436,21 @@ public class SpawnEnemies : MonoBehaviour {
     // Third Level
     void LevelThree()
     {
+        // increment the wave sequence each time this is called
         sequence++;
 
-        // Create new ship GO
-        GameObject spShip;
-
-        // Chose a random fly in point
-        float randFlyInPoint = Random.value; // choose random x value for fly in point
-        float leftOrRight = Random.value; // 50% change it will be negative or positive of x-axis
-
-        int countSeeker = 0; // number of seekers per wave
-        int countFP = 0;    // number of four point ships per wave
-        int countGrunt = 0;    // number of four point ships per wave
-
+        // waves: 6 total
         switch (sequence)
         {
             case 1:
                 TipTextUpdate();
 
-                // 1 FP
-                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                // 1 four point
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
 
                 // 2 grunts
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
-                spShip = Instantiate(gruntShip, new Vector3(15, -2, 85), Quaternion.Euler(0, 90, 0));
+                Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(15, -2, 85), Quaternion.Euler(0, 90, 0));
 
                 Invoke("LevelThree", 20f);
                 break;
@@ -513,13 +458,13 @@ public class SpawnEnemies : MonoBehaviour {
                 TipTextUpdate();
 
                 // 4 grunts
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.Euler(0, 180, 0));
-                spShip = Instantiate(gruntShip, new Vector3(-95, -2, 0), Quaternion.Euler(0, 180, 0));
-                spShip = Instantiate(gruntShip, new Vector3(95, -2, 0), Quaternion.Euler(0, 180, 0));
+                Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.Euler(0, 180, 0));
+                Instantiate(gruntShip, new Vector3(-95, -2, 0), Quaternion.Euler(0, 180, 0));
+                Instantiate(gruntShip, new Vector3(95, -2, 0), Quaternion.Euler(0, 180, 0));
 
                 // 1 FP
-                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
 
                 Invoke("LevelThree", 15f);
                 break;
@@ -527,9 +472,9 @@ public class SpawnEnemies : MonoBehaviour {
                 TipTextUpdate();
 
                 // 3 seekers
-                for (int i = 3; i > countSeeker; countSeeker++)
+                for (int i = 0; i < 3; i++)
                 {
-                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                    Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
                 }
 
                 Invoke("LevelThree", 20f);
@@ -538,13 +483,13 @@ public class SpawnEnemies : MonoBehaviour {
                 TipTextUpdate();
 
                 // 2 grunts
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
 
                 // 3 seekers
-                for (int i = 3; i > countSeeker; countSeeker++)
+                for (int i = 0; i < 3; i++)
                 {
-                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                    Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
                 }
 
                 Invoke("LevelThree", 15f);
@@ -553,40 +498,26 @@ public class SpawnEnemies : MonoBehaviour {
                 TipTextUpdate();
 
                 // 2 grunts
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
 
                 // 2 FP
-                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
-                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
 
                 Invoke("LevelThree", 20f);
                 break;
             case 6:
                 TipTextUpdate();
 
-                int shiftX = 0;
-
-                if (countGrunt == 0)
-                    shiftX = 15;
-                else if (countGrunt == 1)
-                    shiftX = 30;
-                else if (countGrunt == 2)
-                    shiftX = 45;
-                else
-                    shiftX = 60;
-
                 // 4 grunts
-                spShip = Instantiate(gruntShip, new Vector3(-shiftX, -2, 85), Quaternion.identity);
-
-                spShip = Instantiate(gruntShip, new Vector3(shiftX, -2, 85), Quaternion.identity);
-
-                spShip = Instantiate(gruntShip, new Vector3(-shiftX, -2, -85), Quaternion.identity);
-
-                spShip = Instantiate(gruntShip, new Vector3(shiftX, -2, -85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(-30, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(30, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(-30, -2, -85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(30, -2, -85), Quaternion.identity);
 
                 // 1 FP
-                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
 
                 Invoke("LevelThree", 15f);
                 break;
@@ -601,6 +532,7 @@ public class SpawnEnemies : MonoBehaviour {
     // Fourth Level
     void LevelFour()
     {
+        // increment the wave sequence each time this is called
         sequence++;
 
         // Create new ship GO
@@ -609,37 +541,30 @@ public class SpawnEnemies : MonoBehaviour {
         // Create new ship obj
         EnemyShip spShipObj;
 
-        // Chose a random fly in point
-        float randFlyInPoint = Random.value; // choose random x value for fly in point
-        float leftOrRight = Random.value; // 50% change it will be negative or positive of x-axis
-
-        int countSeeker = 0; // number of seekers per wave
-        int countFP = 0;    // number of four point ships per wave
-        int countGrunt = 0;    // number of four point ships per wave
-
         switch (sequence)
         {
             case 1:
                 TipTextUpdate();
 
                 // 5 seekers
-                for (int i = 5; i > countSeeker; countSeeker++)
+                for (int i = 0; i < 5; i++)
                 {
-                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                    Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
                 }
 
                 Invoke("LevelFour", 20f);
                 break;
             case 2:
                 TipTextUpdate();
+
                 // 2 grunts
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
-                spShip = Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(0, -2, 85), Quaternion.identity);
+                Instantiate(gruntShip, new Vector3(0, -2, -85), Quaternion.identity);
 
                 // 3 seekers
-                for (int i = 3; i > countSeeker; countSeeker++)
+                for (int i = 0; i < 3; i++)
                 {
-                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                    Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
                 }
 
                 Invoke("LevelFour", 15f);
@@ -678,9 +603,9 @@ public class SpawnEnemies : MonoBehaviour {
                 TipTextUpdate();
 
                 // 5 seekers
-                for (int i = 5; i > countSeeker; countSeeker++)
+                for (int i = 0; i < 5; i++)
                 {
-                    spShip = Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
+                    Instantiate(seekerShip, flyInPoint(), Quaternion.identity);
                 }
 
                 Invoke("LevelFour", 20f);
@@ -762,10 +687,10 @@ public class SpawnEnemies : MonoBehaviour {
                 spShipObj.rotateSpeedGrunt = .25f;
 
                 // 1 FP
-                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
 
                 // 1 FP
-                spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
+                Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
 
                 Invoke("LevelFour", 15f);
                 break;
