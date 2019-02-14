@@ -32,7 +32,7 @@ public class EnemyShip : MonoBehaviour {
     [Header("Floating Text")]
     public GameObject floatingTextParent;
 
-    [Header("Death Animation")]
+    [Header("Death Animation/Sound")]
     public GameObject deathAnimation;
 
     [Header("Private")]
@@ -40,7 +40,7 @@ public class EnemyShip : MonoBehaviour {
     private float startTime; // Start time from when ship is spawned
     private bool startMoving = false;
     private Quaternion rotation; // track rotation of ship
-
+    
     void Awake () {
         // Set start time and position
         startTime = Time.time;
@@ -113,7 +113,10 @@ public class EnemyShip : MonoBehaviour {
         if (gameObject != null && Health < 0)
         {
             if(deathAnimation != null)
+            {
                 Instantiate(deathAnimation, transform.position, Quaternion.identity);
+            }
+
             Destroy(gameObject);
             score += 100; 
         }
@@ -234,6 +237,11 @@ public class EnemyShip : MonoBehaviour {
         Vector3 randomVector = new Vector3(rx * leftRightEdge, -2, rz * upDownEdge);
 
         return randomVector;
+    }
+
+    public void DestroyDeathAudioSource()
+    {
+
     }
 
     public int Health { get; set; }

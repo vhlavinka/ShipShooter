@@ -296,7 +296,6 @@ public class SpawnEnemies : MonoBehaviour {
                 for (int i = 1; i > countFP; countFP++)
                 {
                     spShip = Instantiate(fourPointShip, flyInPoint(), Quaternion.identity);
-                    print("Four point created");
                 }
                 Invoke("LevelOne", 15f);
                 break;
@@ -848,7 +847,7 @@ public class SpawnEnemies : MonoBehaviour {
     // Updates the text box in tutorial and throughout levels for wave count
     public void TipTextUpdate()
     {
-        if(sceneSequence == 0)
+        if(sceneSequence == 0) // For the tutorial
         {
             tipSequence++;
 
@@ -886,7 +885,7 @@ public class SpawnEnemies : MonoBehaviour {
             }
         }
 
-        if(sceneSequence > 0)
+        if(sceneSequence > 0) // For wave count
         {
             tipSequence++;
             tipText.text = "WAVE: " + tipSequence;

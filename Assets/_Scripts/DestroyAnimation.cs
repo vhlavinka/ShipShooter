@@ -6,7 +6,7 @@ public class DestroyAnimation : MonoBehaviour {
 
     private float timer = 0;
 
-	void Update () {
+    void Update () {
         timer += Time.deltaTime;
 
         if (timer >= 4f)
