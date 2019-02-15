@@ -40,22 +40,29 @@ public class SpawnEnemies : MonoBehaviour {
 
     static public int scoreAtStartofRound;
 
-    private float addBonus = 0;
-    private float endOfRoundTimer = 0;
-    private int endOfRoundBonus = 0;
-    private int endOfRoundPlayerScore = 0;
-    
+    private float addBonus;
+    private float endOfRoundTimer;
+    private int endOfRoundBonus;
+    private int endOfRoundPlayerScore;
+    private Animator txtBonusPointsAnimation;
 
     void Start () {
+        // Initialize end of round values 0 at start of round
+        addBonus = 0;
+        endOfRoundTimer = 0;
+        endOfRoundBonus = 0;
+        endOfRoundPlayerScore = 0;
 
+        // Disable end of round texts at start of round    
+        if (txtBonusPoints != null) txtBonusPoints.text = "";
+        if (txtRoundWin != null) txtRoundWin.enabled = false;
+        txtBonusPointsAnimation = txtBonusPoints.GetComponent<Animator>();
+        txtBonusPointsAnimation.enabled = false;
+
+        // Set start of round score to score from last round
         scoreAtStartofRound = EnemyShip.score;
 
-        // Bonus points text for end of each level
-        if (txtBonusPoints != null) txtBonusPoints.text = "";
-
-        txtRoundWin.enabled = false;
-
-        // Get current scene
+        // Get current scene to determine which level sequence to play
         Scene scene = SceneManager.GetActiveScene();
         if (scene.name == "Tutorial")
         {
@@ -122,21 +129,16 @@ public class SpawnEnemies : MonoBehaviour {
     {
         if (txtRoundWin.enabled)
         {
-            endOfRoundTimer += Time.deltaTime;
+            endOfRoundTimer += Time.deltaTime;          
 
             if (endOfRoundTimer >= 4f)
-            {
-                txtBonusPoints.enabled = false;
-            }
-            if (endOfRoundTimer >= 3f)
             {
                 EnemyShip.score = endOfRoundPlayerScore + endOfRoundBonus;
                 txtBonusPoints.text = "Bonus Points : 0";
             }
             else if (endOfRoundTimer >= 1f)
             {
-                // Give the illusion of the score being added incrementally
-                addBonus = Player.bonusScore / 180; // Next round is invoked in 3 secs
+                // Give the illusion of the score being added incrementally               
                 EnemyShip.score += (int)System.Math.Floor(addBonus); // add bonus points
                 Player.bonusScore -= (int)System.Math.Floor(addBonus);
                 txtBonusPoints.text = "Bonus Points: " + Player.bonusScore.ToString();
@@ -193,7 +195,7 @@ public class SpawnEnemies : MonoBehaviour {
         Invoke("SpawnShip", spawnTime);
     }
 
-    // Health clouds will randomly spawn
+    // Health "clouds" will randomly spawn
     void SpawnHealthCloud()
     {
         float leftOrRight = Random.value;
@@ -749,12 +751,13 @@ public class SpawnEnemies : MonoBehaviour {
         beginChecking = true; // Sets to true once called from case 7
 
         if (GameObject.Find("Seeker(Clone)") ==  null 
-            && GameObject.Find("FourPointShip(Clone)") == null 
-            && GameObject.Find("Grunt(Clone)") == null)
-        {
-            print("End of round");
+                && GameObject.Find("FourPointShip(Clone)") == null 
+                    && GameObject.Find("Grunt(Clone)") == null) {     
+            
             txtRoundWin.enabled = true;
+            txtBonusPointsAnimation.enabled = true;
             endOfRoundBonus = Player.bonusScore;
+            addBonus = endOfRoundBonus / 180; // Next round is invoked in 3 secs
             endOfRoundPlayerScore = EnemyShip.score;
             beginChecking = false;  // stop calling CheckForWin() in Update
             //EnemyShip.score += Player.bonusScore; // add bonus points
