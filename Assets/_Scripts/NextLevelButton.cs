@@ -19,6 +19,7 @@ public class NextLevelButton : MonoBehaviour {
         }
         else
         {
+            m_NextButton.transform.position = new Vector3(1000, 1000, 1000);
             m_NextButton.interactable = false;
         }
 

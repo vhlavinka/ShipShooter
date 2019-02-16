@@ -15,9 +15,6 @@ public class Player : MonoBehaviour {
     [Header("Utilities")]
     public GameObject forceField;  // absorbs enemy projectiles when activated
 
-    [Header("Score Text")]
-    public Text scoreText;
-
     [Header("Sounds")]
     public AudioClip playerHitSound;
     public AudioClip gainHealthSound;
@@ -26,6 +23,12 @@ public class Player : MonoBehaviour {
     public Quaternion rotation;
     public float playerHealth = 100;
 
+    [Header("Death Animation")]
+    public GameObject playerDeathAnimation;
+
+    [Header("Score Text")]
+    public Text scoreText;
+
     [Header("Audio Settings")]
     private AudioSource source;
 
@@ -33,7 +36,9 @@ public class Player : MonoBehaviour {
 
     void Start()
     {
+        // max bonus score from not taking damage
         bonusScore = 1000;
+        
         // set audio source
         source = GetComponent<AudioSource>();
     }
@@ -84,8 +89,11 @@ public class Player : MonoBehaviour {
             rotation = Quaternion.LookRotation(direction - transform.position);
             transform.rotation = rotation;
         }
-
-        scoreText.text = "SCORE: " + EnemyShip.score.ToString();
+        
+        if (scoreText != null)
+        {
+            scoreText.text = "SCORE: " + EnemyShip.score.ToString();
+        }    
     }
 
     // put speed back to normal
@@ -130,7 +138,7 @@ public class Player : MonoBehaviour {
 
 
             // update health bar to reflect changes
-            updateHealthBar();
+            if (!playerDied) updateHealthBar();
         }
     }
 
@@ -162,7 +170,8 @@ public class Player : MonoBehaviour {
 
             if (bonusScore != 0) bonusScore -= 100;
         }
-        updateHealthBar();
+
+        if (!playerDied) updateHealthBar();
     }
 
     // update the health bar, also used in EnemyShoot for grunt laser
@@ -178,8 +187,10 @@ public class Player : MonoBehaviour {
         else
         {
             playerDied = true;
-            
+            Instantiate(playerDeathAnimation, transform.position, Quaternion.identity);
+            transform.localScale = new Vector3(0,0,0);
             Invoke("LoadGameOver", 2f);
+           
         }
     }
 

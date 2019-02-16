@@ -162,7 +162,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1752756171599846}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -2, z: -20}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4522345115213142}
@@ -569,12 +569,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   healthBar: {fileID: 0}
-  forceField: {fileID: 0}
-  scoreText: {fileID: 0}
+  forceField: {fileID: 1381734187110044}
   playerHitSound: {fileID: 8300000, guid: 29513cb9dcb6bf94ebb75deb41bb3ee1, type: 3}
   gainHealthSound: {fileID: 8300000, guid: aa9d833d00723864ab06e9ecaba237d7, type: 3}
   rotation: {x: 0, y: 0, z: 0, w: 0}
   playerHealth: 100
+  playerDeathAnimation: {fileID: 1530727544325918, guid: 50f2c013ede17174684f2602ec05f46f,
+    type: 2}
+  scoreText: {fileID: 0}
 --- !u!114 &114897774585181800
 MonoBehaviour:
   m_ObjectHideFlags: 1

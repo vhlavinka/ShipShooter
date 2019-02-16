@@ -8,8 +8,7 @@ public class SpawnEnemies : MonoBehaviour {
 
     [Header("Track current scene with int")]
     static public int sceneSequence;
-    public Text txtBonusPoints;
-
+    
     // Different types of ships
     [Header("Types of Ships")]
     public GameObject fourPointShip;
@@ -18,10 +17,14 @@ public class SpawnEnemies : MonoBehaviour {
 
     [Header("Spawn other objects")]
     public GameObject healthCloud; // allows player to regain health upon collision
-    public float healthCloudProbability = 0.05f;
-    public Text txtRoundWin;
+    public float healthCloudProbability = 0.05f; 
+    static public int scoreAtStartofRound;
+
+    [Header("UI Elements")]
     public Text tipText;
-    public Text txtLevel;
+    public Text lvlText;
+    public Text txtBonusPoints;
+    public Text txtRoundWin;
 
     [Header("Used in SpawnShip(), testing only")] 
     private float spawnTime = 10f;
@@ -38,8 +41,6 @@ public class SpawnEnemies : MonoBehaviour {
     [Header("Again Button")]
     private GameObject btnAgain;
 
-    static public int scoreAtStartofRound;
-
     private float addBonus;
     private float endOfRoundTimer;
     private int endOfRoundBonus;
@@ -54,8 +55,15 @@ public class SpawnEnemies : MonoBehaviour {
         endOfRoundPlayerScore = 0;
 
         // Disable end of round texts at start of round    
-        if (txtBonusPoints != null) txtBonusPoints.text = "";
-        if (txtRoundWin != null) txtRoundWin.enabled = false;
+        if (txtBonusPoints != null)
+        {
+            txtBonusPoints.text = "";
+        }
+        if (txtRoundWin != null)
+        {
+            txtRoundWin.enabled = false;
+            //print("round win disabled");
+        }
         txtBonusPointsAnimation = txtBonusPoints.GetComponent<Animator>();
         txtBonusPointsAnimation.enabled = false;
 
@@ -116,7 +124,7 @@ public class SpawnEnemies : MonoBehaviour {
         if (sceneSequence!=0)
             Invoke("SpawnHealthCloud", 10f); // begin to spawn health clouds (health packs)
 
-        txtLevel.text = "Level " + sceneSequence;
+        lvlText.text = "Level " + sceneSequence;
     }
 	
 	void Update () {
